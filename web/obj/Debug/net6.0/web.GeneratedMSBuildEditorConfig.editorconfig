@@ -8,11 +8,11 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = web
 build_property.RootNamespace = web
-build_property.ProjectDir = c:\Users\Anže\Desktop\Insurance-IS-main\web\
+build_property.ProjectDir = C:\Users\Anže\Desktop\Insurance-IS-main\web\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\Anže\Desktop\Insurance-IS-main\web
+build_property.MSBuildProjectDirectory = C:\Users\Anže\Desktop\Insurance-IS-main\web
 build_property._RazorSourceGeneratorDebug = 
 
 [c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/Account/Login.cshtml]

@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
+    [Authorize]
     public class InsuranceTypeController : Controller
     {
         private readonly InsuranceContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public InsuranceTypeController(InsuranceContext context)
+        public InsuranceTypeController(InsuranceContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _usermanager = userManager;
         }
 
         // GET: InsuranceType
@@ -56,8 +61,14 @@ namespace web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InsuranceTypeID,Title,Price")] InsuranceType insuranceType)
         {
+            var currentUser = await _usermanager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
+                insuranceType.DateCreated = DateTime.Now;
+                insuranceType.DateEdited = DateTime.Now;
+                insuranceType.Owner = currentUser;
+
                 _context.Add(insuranceType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -65,7 +76,8 @@ namespace web.Controllers
             return View(insuranceType);
         }
 
-        // GET: InsuranceType/Edit/5
+        // GET: InsuranceType/Edit/5 
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +129,7 @@ namespace web.Controllers
         }
 
         // GET: InsuranceType/Delete/5
+        [Authorize(Roles = "Administrator,Staff")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
