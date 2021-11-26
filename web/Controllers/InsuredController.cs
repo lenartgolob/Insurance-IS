@@ -74,7 +74,7 @@ namespace web.Controllers
             }
 
             int pageSize = 3;
-            return View(await insured.AsNoTracking().ToListAsync());
+            return View(await PaginatedList<Insured>.CreateAsync(insured.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Insured/Details/5
