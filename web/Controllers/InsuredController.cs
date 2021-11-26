@@ -22,9 +22,59 @@ namespace web.Controllers
         }
 
         // GET: Insured
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+        string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
-            return View(await _context.Insured.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "first_name_desc" : "FirstName";
+            // ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var insured = from i in _context.Insured
+                        select i;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                insured = insured.Where(i => i.LastName.Contains(searchString)
+                                    || i.FirstMidName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    insured = insured.OrderByDescending(i => i.LastName);
+                    break;
+                case "first_name_desc":
+                    insured = insured.OrderByDescending(i => i.FirstMidName);
+                    break;
+                case "FirstName":
+                    insured = insured.OrderBy(i => i.FirstMidName);
+                    break;
+                // case "Date":
+                //     insured = insured.OrderBy(i => i.EnrollmentDate);
+                //     break;
+                // case "date_desc":
+                //     insured = insured.OrderByDescending(i => i.EnrollmentDate);
+                //     break;
+                default:
+                    insured = insured.OrderBy(i => i.LastName);
+                    break;
+            }
+
+            int pageSize = 3;
+            return View(await insured.AsNoTracking().ToListAsync());
         }
 
         // GET: Insured/Details/5
@@ -58,13 +108,21 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LastName,FirstMidName")] Insured insured)
+        public async Task<IActionResult> Create([Bind("LastName,FirstMidName")] Insured insured)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(insured);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            try {
+                if (ModelState.IsValid)
+                {
+                    _context.Add(insured);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch(DbUpdateException /* ex */) {
+                //Log the error (uncomment ex variable name and write a log.
+                ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists " +
+                "see your system administrator.");
             }
             return View(insured);
         }
