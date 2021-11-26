@@ -60,7 +60,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsuranceTypeID,Title,Price")] InsuranceType insuranceType)
+        public async Task<IActionResult> Create([Bind("Title,Price")] InsuranceType insuranceType)
         {
             var currentUser = await _usermanager.GetUserAsync(User);
 
