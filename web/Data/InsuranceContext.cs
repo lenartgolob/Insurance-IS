@@ -21,5 +21,14 @@ namespace web.Data
             modelBuilder.Entity<InsurancePolicy>().ToTable("Insurance policy");
             modelBuilder.Entity<Insured>().ToTable("Insured");
         }
+
+
+        public DbSet<web.Models.InsuranceSubtype> InsuranceSubtype { get; set; }
+
+
+        public DbSet<web.Models.InsuranceSubjectType> InsuranceSubjectType { get; set; }
+
+
+        public DbSet<web.Models.InsuranceSubject> InsuranceSubject { get; set; }
     }
 }
