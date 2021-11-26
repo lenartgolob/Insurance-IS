@@ -8,10 +8,11 @@ namespace web.Models
     public class Insured
     {
         public int ID { get; set; }
+        [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+        [Required]
         [StringLength(50)]
-        [Column("FirstName")]
         public string FirstMidName { get; set; }
 
 

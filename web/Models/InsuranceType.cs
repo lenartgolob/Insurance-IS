@@ -17,6 +17,6 @@ namespace web.Models
 
         public DateTime? DateEdited { get; set; }
 
-        public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
+        // public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
     }
 }
