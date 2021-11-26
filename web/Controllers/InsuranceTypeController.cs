@@ -24,6 +24,7 @@ namespace web.Controllers
             _usermanager = userManager;
         }
 
+        [Authorize(Roles = "Administrator,Staff")]
         // GET: InsuranceType
         public async Task<IActionResult> Index()
         {

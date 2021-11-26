@@ -8,113 +8,113 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = web
 build_property.RootNamespace = web
-build_property.ProjectDir = C:\Users\Anže\Desktop\Insurance-IS-main\web\
+build_property.ProjectDir = D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Anže\Desktop\Insurance-IS-main\web
+build_property.MSBuildProjectDirectory = D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/Account/Login.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/Account/Logout.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/Account/Register.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3RlckNvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/_ViewImports.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Areas/Identity/Pages/_ViewStart.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Home/Index.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Home/Privacy.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/InsuranceType/Create.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/InsuranceType/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlVHlwZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/InsuranceType/Delete.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/InsuranceType/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlVHlwZVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/InsuranceType/Details.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/InsuranceType/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlVHlwZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/InsuranceType/Edit.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/InsuranceType/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlVHlwZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/InsuranceType/Index.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/InsuranceType/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlVHlwZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Insured/Create.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Insured/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJlZFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Insured/Delete.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Insured/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJlZFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Insured/Details.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Insured/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJlZFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Insured/Edit.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Insured/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJlZFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Insured/Index.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Insured/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJlZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Shared/Error.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Shared/_LoginPartial.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/_ViewImports.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/_ViewStart.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/Anže/Desktop/Insurance-IS-main/web/Views/Shared/_Layout.cshtml]
+[d:/Lenart Golob/Dokumenti/ŠOLA/FRI/2.letnik/IS/Insurance-IS/web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-vpkz4e1jaw

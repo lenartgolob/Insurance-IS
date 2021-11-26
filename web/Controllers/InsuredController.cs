@@ -34,8 +34,10 @@ namespace web.Controllers
             {
                 return NotFound();
             }
-
             var insured = await _context.Insured
+                .Include(s => s.InsurancePolicies)
+                    .ThenInclude(e => e.InsuranceType)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (insured == null)
             {

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Anže\\Desktop\\Insurance-IS-main\\web\\web.csproj": {}
+    "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Anže\\Desktop\\Insurance-IS-main\\web\\web.csproj": {
+    "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Anže\\Desktop\\Insurance-IS-main\\web\\web.csproj",
+        "projectUniqueName": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\web.csproj",
         "projectName": "web",
-        "projectPath": "C:\\Users\\Anže\\Desktop\\Insurance-IS-main\\web\\web.csproj",
-        "packagesPath": "C:\\Users\\Anže\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Anže\\Desktop\\Insurance-IS-main\\web\\obj\\",
+        "projectPath": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\web.csproj",
+        "packagesPath": "C:\\Users\\lenar\\.nuget\\packages\\",
+        "outputPath": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Anže\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lenar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
