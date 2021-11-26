@@ -26,9 +26,58 @@ namespace web.Controllers
 
         [Authorize(Roles = "Administrator,Staff")]
         // GET: InsuranceType
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+        string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
-            return View(await _context.InsuranceType.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
+            // ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var insuranceTypes = from t in _context.InsuranceType
+                        select t;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                insuranceTypes = insuranceTypes.Where(t => t.Title.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    insuranceTypes = insuranceTypes.OrderByDescending(t => t.Title);
+                    break;
+                case "price_desc":
+                    insuranceTypes = insuranceTypes.OrderByDescending(t => t.Price);
+                    break;
+                case "Price":
+                    insuranceTypes = insuranceTypes.OrderBy(t => t.Price);
+                    break;
+                // case "Date":
+                //     insured = insured.OrderBy(i => i.EnrollmentDate);
+                //     break;
+                // case "date_desc":
+                //     insured = insured.OrderByDescending(i => i.EnrollmentDate);
+                //     break;
+                default:
+                    insuranceTypes = insuranceTypes.OrderBy(t => t.Title);
+                    break;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<InsuranceType>.CreateAsync(insuranceTypes.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: InsuranceType/Details/5
@@ -60,7 +109,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Price")] InsuranceType insuranceType)
+        public async Task<IActionResult> Create([Bind("InsuranceTypeID,Title,Price")] InsuranceType insuranceType)
         {
             var currentUser = await _usermanager.GetUserAsync(User);
 
