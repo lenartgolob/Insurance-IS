@@ -22,7 +22,11 @@ namespace web.Controllers
         // GET: InsuranceSubtypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.InsuranceSubtype.ToListAsync());
+            var insuranceSubtypes = _context.InsuranceSubtype
+                .Include(i => i.InsuranceType)
+                .AsNoTracking();
+            return View(await insuranceSubtypes.ToListAsync());
+
         }
 
         // GET: InsuranceSubtypes/Details/5
@@ -34,6 +38,8 @@ namespace web.Controllers
             }
 
             var insuranceSubtype = await _context.InsuranceSubtype
+                .Include(s => s.InsuranceType)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsuranceSubtypeID == id);
             if (insuranceSubtype == null)
             {
@@ -46,6 +52,7 @@ namespace web.Controllers
         // GET: InsuranceSubtypes/Create
         public IActionResult Create()
         {
+            PopulateInsuranceTypesDropDownList();
             return View();
         }
 
@@ -62,6 +69,8 @@ namespace web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            // PopulateInsuranceTypesDropDownList(insuranceSubtype.InsuranceTypeFKID);
+            PopulateInsuranceTypesDropDownList(insuranceSubtype.InsuranceTypeID);
             return View(insuranceSubtype);
         }
 
@@ -73,11 +82,16 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var insuranceSubtype = await _context.InsuranceSubtype.FindAsync(id);
+            // var insuranceSubtype = await _context.InsuranceSubtype.FindAsync(id);
+            var insuranceSubtype = await _context.InsuranceSubtype
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.InsuranceSubtypeID == id);
             if (insuranceSubtype == null)
             {
                 return NotFound();
             }
+            PopulateInsuranceTypesDropDownList(insuranceSubtype.InsuranceTypeID);
+            // PopulateInsuranceTypesDropDownList(insuranceSubtype.InsuranceTypeFKID);
             return View(insuranceSubtype);
         }
 
@@ -116,6 +130,16 @@ namespace web.Controllers
             return View(insuranceSubtype);
         }
 
+        private void PopulateInsuranceTypesDropDownList(object selectedInsuranceType = null)
+        {
+            var insuranceTypesQuery = from t in _context.InsuranceType
+                                orderby t.Title
+                                select t;
+            // ViewBag.InsuranceTypeFKID = new SelectList(insuranceTypesQuery.AsNoTracking(), "InsuranceTypeID", "Title", selectedInsuranceType);
+            ViewBag.InsuranceTypeID = new SelectList(insuranceTypesQuery.AsNoTracking(), "InsuranceTypeID", "Title", selectedInsuranceType);
+
+        }
+
         // GET: InsuranceSubtypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -125,6 +149,8 @@ namespace web.Controllers
             }
 
             var insuranceSubtype = await _context.InsuranceSubtype
+                .Include(s => s.InsuranceType)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsuranceSubtypeID == id);
             if (insuranceSubtype == null)
             {

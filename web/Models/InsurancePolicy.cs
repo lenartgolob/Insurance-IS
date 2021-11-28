@@ -15,7 +15,7 @@ namespace web.Models
         public decimal FinalSum { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-
+        public int InsuredID { get; set; }
         public Insured Insured { get; set; }
         public ICollection<InsuranceSubtype>? InsuranceSubtypes { get; set; }
         public InsuranceSubject InsuranceSubject { get; set; }

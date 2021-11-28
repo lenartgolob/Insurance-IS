@@ -20,6 +20,9 @@ namespace web.Data
             modelBuilder.Entity<InsuranceType>().ToTable("Insurance type");
             modelBuilder.Entity<InsurancePolicy>().ToTable("Insurance policy");
             modelBuilder.Entity<Insured>().ToTable("Insured");
+            modelBuilder.Entity<InsuranceSubtype>().ToTable("Insurance subtype");
+            modelBuilder.Entity<InsuranceSubject>().ToTable("Insurance subject");
+            modelBuilder.Entity<InsuranceSubjectType>().ToTable("Insurance subject type");
         }
 
 

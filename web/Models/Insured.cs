@@ -14,7 +14,7 @@ namespace web.Models
         [Required]
         [StringLength(50)]
         public string FirstMidName { get; set; }
-
+        public string? FullName { get; set; }
 
         public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
     }

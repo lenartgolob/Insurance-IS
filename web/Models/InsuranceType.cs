@@ -9,8 +9,6 @@ namespace web.Models
     {
         public int InsuranceTypeID { get; set; }
         public string Title { get; set; }
-        public int Price { get; set; }
-
         public ApplicationUser? Owner { get; set; }
 
         public DateTime? DateCreated { get; set; }

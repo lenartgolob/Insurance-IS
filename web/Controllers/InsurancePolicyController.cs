@@ -34,6 +34,8 @@ namespace web.Controllers
             }
 
             var insurancePolicy = await _context.InsurancePolicy
+                .Include(p => p.Insured)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsurancePolicyID == id);
             if (insurancePolicy == null)
             {
@@ -46,6 +48,7 @@ namespace web.Controllers
         // GET: InsurancePolicy/Create
         public IActionResult Create()
         {
+            PopulateInsuredDropDownList();
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsurancePolicyID,FinalSum,DateFrom,DateTo")] InsurancePolicy insurancePolicy)
+        public async Task<IActionResult> Create([Bind("InsurancePolicyID,InsuredID,FinalSum,DateFrom,DateTo")] InsurancePolicy insurancePolicy)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            PopulateInsuredDropDownList(insurancePolicy.InsuredID);
             return View(insurancePolicy);
         }
 
@@ -73,11 +77,14 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var insurancePolicy = await _context.InsurancePolicy.FindAsync(id);
+            var insurancePolicy = await _context.InsurancePolicy
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.InsurancePolicyID == id);
             if (insurancePolicy == null)
             {
                 return NotFound();
             }
+            PopulateInsuredDropDownList(insurancePolicy.InsuredID);
             return View(insurancePolicy);
         }
 
@@ -114,6 +121,36 @@ namespace web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(insurancePolicy);
+            // var insurancePolicyToUpdate = await _context.InsurancePolicy
+            //     .FirstOrDefaultAsync(p => p.InsurancePolicyID == id);
+
+            // if (await TryUpdateModelAsync<InsurancePolicy>(insurancePolicyToUpdate,
+            //     "",
+            //     p => p.FinalSum, p => p.InsuredID, p => p.DateFrom, p => p.DatoTo))
+            // {
+            //     try
+            //     {
+            //         await _context.SaveChangesAsync();
+            //     }
+            //     catch (DbUpdateException /* ex */)
+            //     {
+            //         //Log the error (uncomment ex variable name and write a log.)
+            //         ModelState.AddModelError("", "Unable to save changes. " +
+            //             "Try again, and if the problem persists, " +
+            //             "see your system administrator.");
+            //     }
+            //     return RedirectToAction(nameof(Index));
+            // }
+            // PopulateInsuredDropDownList(insurancePolicy.InsuredID);
+            // return View(insurancePolicyToUpdate);
+        }
+
+        private void PopulateInsuredDropDownList(object selectedInsured = null)
+        {
+            var insuredQuery = from i in _context.Insured
+                                orderby i.LastName
+                                select i;
+            ViewBag.InsuredID = new SelectList(insuredQuery.AsNoTracking(), "ID", "FullName", selectedInsured);
         }
 
         // GET: InsurancePolicy/Delete/5
@@ -125,6 +162,8 @@ namespace web.Controllers
             }
 
             var insurancePolicy = await _context.InsurancePolicy
+                .Include(p => p.Insured)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsurancePolicyID == id);
             if (insurancePolicy == null)
             {

@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.EstimatedValue)
             </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.InsuranceSubjectType.Title)
+            </th> *@
             <th></th>
         </tr>
     </thead>
@@ -36,6 +39,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EstimatedValue)
             </td>
+            @* <td>
+                @Html.DisplayFor(model => model.InsuranceSubjectType.Title)
+            </td> *@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.InsuranceSubjectID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.InsuranceSubjectID">Details</a> |

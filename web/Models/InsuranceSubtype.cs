@@ -15,7 +15,8 @@ namespace web.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal Rate { get; set; }
-        public InsuranceType InsuranceType { get; set; }
+        public int? InsuranceTypeID;
+        public InsuranceType? InsuranceType { get; set; }
 
     }
 }

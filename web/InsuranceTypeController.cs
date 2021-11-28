@@ -8,20 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
-    [Authorize]
-    public class InsuredController : Controller
+    // [Authorize]
+    public class InsuranceTypeController : Controller
     {
         private readonly InsuranceContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public InsuredController(InsuranceContext context)
+        public InsuranceTypeController(InsuranceContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _usermanager = userManager;
         }
 
-        // GET: Insured
+        // [Authorize(Roles = "Administrator,Staff")]
+        // GET: InsuranceType
         public async Task<IActionResult> Index(
         string sortOrder,
         string currentFilter,
@@ -29,8 +33,8 @@ namespace web.Controllers
         int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "first_name_desc" : "FirstName";
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            // ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
             // ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
             if (searchString != null)
@@ -44,24 +48,23 @@ namespace web.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var insured = from i in _context.Insured
-                        select i;
+            var insuranceTypes = from t in _context.InsuranceType
+                        select t;
             if (!String.IsNullOrEmpty(searchString))
             {
-                insured = insured.Where(i => i.LastName.Contains(searchString)
-                                    || i.FirstMidName.Contains(searchString));
+                insuranceTypes = insuranceTypes.Where(t => t.Title.Contains(searchString));
             }
             switch (sortOrder)
             {
-                case "name_desc":
-                    insured = insured.OrderByDescending(i => i.LastName);
+                case "title_desc":
+                    insuranceTypes = insuranceTypes.OrderByDescending(t => t.Title);
                     break;
-                case "first_name_desc":
-                    insured = insured.OrderByDescending(i => i.FirstMidName);
-                    break;
-                case "FirstName":
-                    insured = insured.OrderBy(i => i.FirstMidName);
-                    break;
+                // case "price_desc":
+                //     insuranceTypes = insuranceTypes.OrderByDescending(t => t.Price);
+                //     break;
+                // case "Price":
+                //     insuranceTypes = insuranceTypes.OrderBy(t => t.Price);
+                //     break;
                 // case "Date":
                 //     insured = insured.OrderBy(i => i.EnrollmentDate);
                 //     break;
@@ -69,66 +72,62 @@ namespace web.Controllers
                 //     insured = insured.OrderByDescending(i => i.EnrollmentDate);
                 //     break;
                 default:
-                    insured = insured.OrderBy(i => i.LastName);
+                    insuranceTypes = insuranceTypes.OrderBy(t => t.Title);
                     break;
             }
 
             int pageSize = 3;
-            return View(await PaginatedList<Insured>.CreateAsync(insured.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<InsuranceType>.CreateAsync(insuranceTypes.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-        // GET: Insured/Details/5
+        // GET: InsuranceType/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var insured = await _context.Insured
-                .Include(s => s.InsurancePolicies)
-                    .ThenInclude(e => e.InsuranceSubtypes)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (insured == null)
+
+            var insuranceType = await _context.InsuranceType
+                .FirstOrDefaultAsync(m => m.InsuranceTypeID == id);
+            if (insuranceType == null)
             {
                 return NotFound();
             }
 
-            return View(insured);
+            return View(insuranceType);
         }
 
-        // GET: Insured/Create
+        // GET: InsuranceType/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Insured/Create
+        // POST: InsuranceType/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LastName,FirstMidName")] Insured insured)
+        public async Task<IActionResult> Create([Bind("InsuranceTypeID,Title")] InsuranceType insuranceType)
         {
-            try {
-                if (ModelState.IsValid)
-                {
-                    insured.FullName = insured.FirstMidName + " " + insured.LastName;
-                    _context.Add(insured);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
+            var currentUser = await _usermanager.GetUserAsync(User);
+
+            if (ModelState.IsValid)
+            {
+                insuranceType.DateCreated = DateTime.Now;
+                insuranceType.DateEdited = DateTime.Now;
+                insuranceType.Owner = currentUser;
+
+                _context.Add(insuranceType);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch(DbUpdateException /* ex */) {
-                //Log the error (uncomment ex variable name and write a log.
-                ModelState.AddModelError("", "Unable to save changes. " +
-                "Try again, and if the problem persists " +
-                "see your system administrator.");
-            }
-            return View(insured);
+            return View(insuranceType);
         }
 
-        // GET: Insured/Edit/5
+        // GET: InsuranceType/Edit/5 
+        // [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -136,22 +135,22 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var insured = await _context.Insured.FindAsync(id);
-            if (insured == null)
+            var insuranceType = await _context.InsuranceType.FindAsync(id);
+            if (insuranceType == null)
             {
                 return NotFound();
             }
-            return View(insured);
+            return View(insuranceType);
         }
 
-        // POST: Insured/Edit/5
+        // POST: InsuranceType/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstMidName")] Insured insured)
+        public async Task<IActionResult> Edit(int id, [Bind("InsuranceTypeID,Title")] InsuranceType insuranceType)
         {
-            if (id != insured.ID)
+            if (id != insuranceType.InsuranceTypeID)
             {
                 return NotFound();
             }
@@ -160,13 +159,12 @@ namespace web.Controllers
             {
                 try
                 {
-                    insured.FullName = insured.FirstMidName + " " + insured.LastName;
-                    _context.Update(insured);
+                    _context.Update(insuranceType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InsuredExists(insured.ID))
+                    if (!InsuranceTypeExists(insuranceType.InsuranceTypeID))
                     {
                         return NotFound();
                     }
@@ -177,10 +175,11 @@ namespace web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(insured);
+            return View(insuranceType);
         }
 
-        // GET: Insured/Delete/5
+        // GET: InsuranceType/Delete/5
+        // [Authorize(Roles = "Administrator,Staff")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -188,30 +187,30 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var insured = await _context.Insured
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (insured == null)
+            var insuranceType = await _context.InsuranceType
+                .FirstOrDefaultAsync(m => m.InsuranceTypeID == id);
+            if (insuranceType == null)
             {
                 return NotFound();
             }
 
-            return View(insured);
+            return View(insuranceType);
         }
 
-        // POST: Insured/Delete/5
+        // POST: InsuranceType/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var insured = await _context.Insured.FindAsync(id);
-            _context.Insured.Remove(insured);
+            var insuranceType = await _context.InsuranceType.FindAsync(id);
+            _context.InsuranceType.Remove(insuranceType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InsuredExists(int id)
+        private bool InsuranceTypeExists(int id)
         {
-            return _context.Insured.Any(e => e.ID == id);
+            return _context.InsuranceType.Any(e => e.InsuranceTypeID == id);
         }
     }
 }
