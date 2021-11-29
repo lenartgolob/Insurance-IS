@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZHb8AIBRV8e6R7/QaBiNCRYtQ3/VnIGgcPTNNFYH48w=",
+  "Hash": "rm49lhS2DxnY2ZVgbdib3gn+jHLBnHxFQNMwROwuiNI=",
   "Source": "web",
   "BasePath": "_content/web",
   "Mode": "Default",
@@ -1241,12 +1241,12 @@
       "OriginalItemSpec": "wwwroot\\images\\insurance6.png"
     },
     {
-      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\logo.jpg",
+      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\logo-small.png",
       "SourceId": "web",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\",
       "BasePath": "_content/web",
-      "RelativePath": "images/logo.jpg",
+      "RelativePath": "images/logo-small.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1255,7 +1255,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\logo.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\logo-small.png"
     },
     {
       "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\logo.png",
