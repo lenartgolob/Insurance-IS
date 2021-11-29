@@ -17,6 +17,8 @@ namespace web.Models
         public decimal Rate { get; set; }
         public int? InsuranceTypeID;
         public InsuranceType? InsuranceType { get; set; }
+        public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
+
 
     }
 }

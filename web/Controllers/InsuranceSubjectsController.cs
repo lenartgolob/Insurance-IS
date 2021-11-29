@@ -49,6 +49,7 @@ namespace web.Controllers
         public IActionResult Create()
         {
             PopulateSubjectTypesDropDownList();
+            PopulateInsuredDropDownList();
             return View();
         }
 
@@ -66,6 +67,7 @@ namespace web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             PopulateSubjectTypesDropDownList(insuranceSubject.InsuranceSubjectTypeID);
+            PopulateInsuredDropDownList(insuranceSubject.InsuredID);
             return View(insuranceSubject);
         }
 
@@ -85,6 +87,7 @@ namespace web.Controllers
                 return NotFound();
             }
             PopulateSubjectTypesDropDownList(insuranceSubject.InsuranceSubjectTypeID);
+            PopulateInsuredDropDownList(insuranceSubject.InsuredID);
             return View(insuranceSubject);
         }
 
@@ -105,7 +108,7 @@ namespace web.Controllers
 
                 if (await TryUpdateModelAsync<InsuranceSubject>(insuranceSubjectToUpdate,
                     "",
-                    s => s.Title, s => s.Description, s => s.EstimatedValue, s => s.InsuranceSubjectTypeID))
+                    s => s.Title, s => s.Description, s => s.EstimatedValue, s => s.InsuranceSubjectTypeID, s => s.InsuredID))
                 {
                     try
                     {
@@ -121,6 +124,7 @@ namespace web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 PopulateSubjectTypesDropDownList(insuranceSubjectToUpdate.InsuranceSubjectTypeID);
+                PopulateInsuredDropDownList(insuranceSubject.InsuredID);
                 return View(insuranceSubjectToUpdate);
 
             // if (ModelState.IsValid)
@@ -152,6 +156,14 @@ namespace web.Controllers
                                 orderby t.Title
                                 select t;
             ViewBag.InsuranceSubjectTypeID = new SelectList(insuranceSubjectTypesQuery.AsNoTracking(), "InsuranceSubjectTypeID", "Title", selectedInsuranceSubjectType);
+        }
+
+        private void PopulateInsuredDropDownList(object selectedInsured = null)
+        {
+            var insuredQuery = from i in _context.Insured
+                                orderby i.FullName
+                                select i;
+            ViewBag.InsuredID = new SelectList(insuredQuery.AsNoTracking(), "ID", "FullName", selectedInsured);
         }
 
         // GET: InsuranceSubjects/Delete/5

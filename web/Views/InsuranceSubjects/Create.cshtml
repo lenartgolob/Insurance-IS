@@ -35,6 +35,13 @@
                 <span asp-validation-for="InsuranceSubjectTypeID" class="text-danger" />
             </div>
             <div class="form-group">
+                <label asp-for="Insured" class="control-label"></label>
+                <select asp-for="InsuredID" class="form-control" asp-items="ViewBag.InsuredID">
+                    <option value="">-- Select Insured --</option>
+                </select>
+                <span asp-validation-for="InsuredID" class="text-danger" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

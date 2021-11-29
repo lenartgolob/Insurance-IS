@@ -86,7 +86,7 @@ namespace web.Controllers
             }
             var insured = await _context.Insured
                 .Include(s => s.InsurancePolicies)
-                    .ThenInclude(e => e.InsuranceSubtypes)
+                    .ThenInclude(e => e.InsuranceSubtype)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (insured == null)

@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Insure a client";
+}
+<div class="container-steps">
+    <h1>@ViewData["Title"]</h1>
+    <p>Use this page to create a insurance policy.</p>
+    <hr />
+    <br />
+        <p>1. Register your client</p>
+        <div>
+            <a class="btn btn-primary" asp-area="" asp-controller="Insured" asp-action="Index">Register client</a>
+        </div>
+        <br />
+        <p>2. Create the Object of insurance</p>
+        <div>
+            <a class="btn btn-primary" asp-area="" asp-controller="InsuranceSubjects" asp-action="Index">Create object</a>
+        </div>
+        <br />
+        <p>3. Now conclude the insurance policy</p>
+        <div>
+            <a class="btn btn-primary" asp-area="" asp-controller="InsurancePolicy" asp-action="Index">Create Insurance Policy</a>
+        </div>
+</div>

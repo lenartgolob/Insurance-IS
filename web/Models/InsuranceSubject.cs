@@ -15,7 +15,11 @@ namespace web.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal EstimatedValue { get; set; }
+        public int? InsuredID;
+        public Insured? Insured;
         public int? InsuranceSubjectTypeID { get; set; }
         public InsuranceSubjectType? InsuranceSubjectType { get; set; }
+        public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
+
     }
 }
