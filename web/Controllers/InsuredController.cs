@@ -86,7 +86,7 @@ namespace web.Controllers
             }
             var insured = await _context.Insured
                 .Include(s => s.InsurancePolicies)
-                    .ThenInclude(e => e.InsuranceType)
+                    .ThenInclude(e => e.InsuranceSubtype)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (insured == null)
@@ -113,6 +113,7 @@ namespace web.Controllers
             try {
                 if (ModelState.IsValid)
                 {
+                    insured.FullName = insured.FirstMidName + " " + insured.LastName;
                     _context.Add(insured);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -159,6 +160,7 @@ namespace web.Controllers
             {
                 try
                 {
+                    insured.FullName = insured.FirstMidName + " " + insured.LastName;
                     _context.Update(insured);
                     await _context.SaveChangesAsync();
                 }

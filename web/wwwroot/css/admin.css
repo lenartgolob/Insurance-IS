@@ -1,0 +1,13 @@
+.admin-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin-container a {
+    text-decoration: none;
+
+}
+
+.mycard {
+    width: 500px !important;
+}

@@ -46,21 +46,21 @@ app.MapControllerRoute(
 app.Run();
 
 
-// static void CreateDbIfNotExists(IHost host)
-//         {
-//             using (var scope = host.Services.CreateScope())
-//             {
-//                 var services = scope.ServiceProvider;
-//                 try
-//                 {
-//                     var context = services.GetRequiredService<SchoolContext>();
-//                     //context.Database.EnsureCreated();
-//                     DbInitializer.Initialize(context);
-//                 }
-//                 catch (Exception ex)
-//                 {
-//                     var logger = services.GetRequiredService<ILogger<Program>>();
-//                     logger.LogError(ex, "An error occurred creating the DB.");
-//                 }
-//             }
-//         }
+static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<InsuranceContext>();
+                    //context.Database.EnsureCreated();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
+        }

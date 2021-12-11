@@ -12,8 +12,8 @@ using web.Data;
 namespace web.Migrations
 {
     [DbContext(typeof(InsuranceContext))]
-    [Migration("20211119185934_Start")]
-    partial class Start
+    [Migration("20211211122039_InsuranceTypesModification")]
+    partial class InsuranceTypesModification
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -249,37 +249,118 @@ namespace web.Migrations
                     b.Property<DateTime>("DateTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InsuranceTypeID")
+                    b.Property<decimal>("FinalSum")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("InsuranceSubjectID")
                         .HasColumnType("int");
 
-                    b.Property<int>("InsuredID")
+                    b.Property<int?>("InsuranceSubtypeID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InsuredID")
                         .HasColumnType("int");
 
                     b.HasKey("InsurancePolicyID");
 
-                    b.HasIndex("InsuranceTypeID");
+                    b.HasIndex("InsuranceSubjectID");
+
+                    b.HasIndex("InsuranceSubtypeID");
 
                     b.HasIndex("InsuredID");
 
                     b.ToTable("Insurance policy", (string)null);
                 });
 
+            modelBuilder.Entity("web.Models.InsuranceSubject", b =>
+                {
+                    b.Property<int>("InsuranceSubjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceSubjectID"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("EstimatedValue")
+                        .HasColumnType("money");
+
+                    b.Property<int?>("InsuranceSubjectTypeID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InsuredID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("InsuranceSubjectID");
+
+                    b.HasIndex("InsuranceSubjectTypeID");
+
+                    b.HasIndex("InsuredID");
+
+                    b.ToTable("Insurance subject", (string)null);
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceSubjectType", b =>
+                {
+                    b.Property<int>("InsuranceSubjectTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceSubjectTypeID"), 1L, 1);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("InsuranceSubjectTypeID");
+
+                    b.ToTable("Insurance subject type", (string)null);
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceSubtype", b =>
+                {
+                    b.Property<int>("InsuranceSubtypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceSubtypeID"), 1L, 1);
+
+                    b.Property<int?>("InsuranceTypeID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("money");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("InsuranceSubtypeID");
+
+                    b.HasIndex("InsuranceTypeID");
+
+                    b.ToTable("Insurance subtype", (string)null);
+                });
+
             modelBuilder.Entity("web.Models.InsuranceType", b =>
                 {
                     b.Property<int>("InsuranceTypeID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateEdited")
-                        .HasColumnType("datetime2");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceTypeID"), 1L, 1);
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -302,11 +383,16 @@ namespace web.Migrations
 
                     b.Property<string>("FirstMidName")
                         .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("ID");
 
@@ -366,21 +452,47 @@ namespace web.Migrations
 
             modelBuilder.Entity("web.Models.InsurancePolicy", b =>
                 {
-                    b.HasOne("web.Models.InsuranceType", "InsuranceType")
+                    b.HasOne("web.Models.InsuranceSubject", "InsuranceSubject")
                         .WithMany("InsurancePolicies")
-                        .HasForeignKey("InsuranceTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InsuranceSubjectID");
+
+                    b.HasOne("web.Models.InsuranceSubtype", "InsuranceSubtype")
+                        .WithMany("InsurancePolicies")
+                        .HasForeignKey("InsuranceSubtypeID");
 
                     b.HasOne("web.Models.Insured", "Insured")
                         .WithMany("InsurancePolicies")
-                        .HasForeignKey("InsuredID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InsuredID");
 
-                    b.Navigation("InsuranceType");
+                    b.Navigation("InsuranceSubject");
+
+                    b.Navigation("InsuranceSubtype");
 
                     b.Navigation("Insured");
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceSubject", b =>
+                {
+                    b.HasOne("web.Models.InsuranceSubjectType", "InsuranceSubjectType")
+                        .WithMany("InsuranceSubjects")
+                        .HasForeignKey("InsuranceSubjectTypeID");
+
+                    b.HasOne("web.Models.Insured", "Insured")
+                        .WithMany("InsuranceSubjects")
+                        .HasForeignKey("InsuredID");
+
+                    b.Navigation("InsuranceSubjectType");
+
+                    b.Navigation("Insured");
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceSubtype", b =>
+                {
+                    b.HasOne("web.Models.InsuranceType", "InsuranceType")
+                        .WithMany("InsuranceSubtypes")
+                        .HasForeignKey("InsuranceTypeID");
+
+                    b.Navigation("InsuranceType");
                 });
 
             modelBuilder.Entity("web.Models.InsuranceType", b =>
@@ -392,14 +504,31 @@ namespace web.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("web.Models.InsuranceType", b =>
+            modelBuilder.Entity("web.Models.InsuranceSubject", b =>
                 {
                     b.Navigation("InsurancePolicies");
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceSubjectType", b =>
+                {
+                    b.Navigation("InsuranceSubjects");
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceSubtype", b =>
+                {
+                    b.Navigation("InsurancePolicies");
+                });
+
+            modelBuilder.Entity("web.Models.InsuranceType", b =>
+                {
+                    b.Navigation("InsuranceSubtypes");
                 });
 
             modelBuilder.Entity("web.Models.Insured", b =>
                 {
                     b.Navigation("InsurancePolicies");
+
+                    b.Navigation("InsuranceSubjects");
                 });
 #pragma warning restore 612, 618
         }

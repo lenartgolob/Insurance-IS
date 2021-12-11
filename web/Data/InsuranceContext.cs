@@ -12,6 +12,13 @@ namespace web.Data
         public DbSet<InsuranceType> InsuranceType { get; set; }
         public DbSet<InsurancePolicy> InsurancePolicy { get; set; }
         public DbSet<Insured> Insured { get; set; }
+        public DbSet<web.Models.InsuranceSubtype> InsuranceSubtype { get; set; }
+
+
+        public DbSet<web.Models.InsuranceSubjectType> InsuranceSubjectType { get; set; }
+
+
+        public DbSet<web.Models.InsuranceSubject> InsuranceSubject { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +27,9 @@ namespace web.Data
             modelBuilder.Entity<InsuranceType>().ToTable("Insurance type");
             modelBuilder.Entity<InsurancePolicy>().ToTable("Insurance policy");
             modelBuilder.Entity<Insured>().ToTable("Insured");
+            modelBuilder.Entity<InsuranceSubtype>().ToTable("Insurance subtype");
+            modelBuilder.Entity<InsuranceSubject>().ToTable("Insurance subject");
+            modelBuilder.Entity<InsuranceSubjectType>().ToTable("Insurance subject type");
         }
     }
 }

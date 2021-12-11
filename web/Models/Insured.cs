@@ -8,13 +8,14 @@ namespace web.Models
     public class Insured
     {
         public int ID { get; set; }
+        [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+        [Required]
         [StringLength(50)]
-        [Column("FirstName")]
         public string FirstMidName { get; set; }
-
-
+        public string? FullName { get; set; }
+        public ICollection<InsuranceSubject>? InsuranceSubjects { get; set; }
         public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
     }
 }

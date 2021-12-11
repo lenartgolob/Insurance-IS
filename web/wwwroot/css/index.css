@@ -1,0 +1,30 @@
+.image {
+    width: 50%;
+    position: absolute !important;
+    right: 0px !important;
+    bottom: 0px !important;
+}
+
+.img-container {
+    width: 40%;
+    position: absolute !important;
+    text-align: right;
+    right: 0px !important;
+    bottom: 60px !important;
+}
+
+.img-container img {
+    width: 100%;
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.logo-container img {
+    width: 250px;
+}
+
+.font-italic {
+    font-style: italic;
+}

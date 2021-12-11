@@ -9,14 +9,11 @@ namespace web.Models
     {
         public int InsuranceTypeID { get; set; }
         public string Title { get; set; }
-        public int Price { get; set; }
-
         public ApplicationUser? Owner { get; set; }
 
-        public DateTime? DateCreated { get; set; }
+        // public DateTime? DateCreated { get; set; }
 
-        public DateTime? DateEdited { get; set; }
-
-        public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
+        // public DateTime? DateEdited { get; set; }
+        public ICollection<InsuranceSubtype>? InsuranceSubtypes { get; set; }
     }
 }

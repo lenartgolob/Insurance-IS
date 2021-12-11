@@ -7,80 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
-    [Authorize]
-    public class InsuranceTypeController : Controller
+    public class InsuranceTypesController : Controller
     {
         private readonly InsuranceContext _context;
-        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public InsuranceTypeController(InsuranceContext context, UserManager<ApplicationUser> userManager)
+        public InsuranceTypesController(InsuranceContext context)
         {
             _context = context;
-            _usermanager = userManager;
         }
 
-        [Authorize(Roles = "Administrator,Staff")]
-        // GET: InsuranceType
-        public async Task<IActionResult> Index(
-        string sortOrder,
-        string currentFilter,
-        string searchString,
-        int? pageNumber)
+        // GET: InsuranceTypes
+        public async Task<IActionResult> Index()
         {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
-            // ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewData["CurrentFilter"] = searchString;
-
-            var insuranceTypes = from t in _context.InsuranceType
-                        select t;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                insuranceTypes = insuranceTypes.Where(t => t.Title.Contains(searchString));
-            }
-            switch (sortOrder)
-            {
-                case "title_desc":
-                    insuranceTypes = insuranceTypes.OrderByDescending(t => t.Title);
-                    break;
-                case "price_desc":
-                    insuranceTypes = insuranceTypes.OrderByDescending(t => t.Price);
-                    break;
-                case "Price":
-                    insuranceTypes = insuranceTypes.OrderBy(t => t.Price);
-                    break;
-                // case "Date":
-                //     insured = insured.OrderBy(i => i.EnrollmentDate);
-                //     break;
-                // case "date_desc":
-                //     insured = insured.OrderByDescending(i => i.EnrollmentDate);
-                //     break;
-                default:
-                    insuranceTypes = insuranceTypes.OrderBy(t => t.Title);
-                    break;
-            }
-
-            int pageSize = 3;
-            return View(await PaginatedList<InsuranceType>.CreateAsync(insuranceTypes.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await _context.InsuranceType.ToListAsync());
         }
 
-        // GET: InsuranceType/Details/5
+        // GET: InsuranceTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -98,27 +43,21 @@ namespace web.Controllers
             return View(insuranceType);
         }
 
-        // GET: InsuranceType/Create
+        // GET: InsuranceTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: InsuranceType/Create
+        // POST: InsuranceTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsuranceTypeID,Title,Price")] InsuranceType insuranceType)
+        public async Task<IActionResult> Create([Bind("InsuranceTypeID,Title")] InsuranceType insuranceType)
         {
-            var currentUser = await _usermanager.GetUserAsync(User);
-
             if (ModelState.IsValid)
             {
-                insuranceType.DateCreated = DateTime.Now;
-                insuranceType.DateEdited = DateTime.Now;
-                insuranceType.Owner = currentUser;
-
                 _context.Add(insuranceType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -126,8 +65,7 @@ namespace web.Controllers
             return View(insuranceType);
         }
 
-        // GET: InsuranceType/Edit/5 
-        [Authorize(Roles = "Administrator")]
+        // GET: InsuranceTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -143,12 +81,12 @@ namespace web.Controllers
             return View(insuranceType);
         }
 
-        // POST: InsuranceType/Edit/5
+        // POST: InsuranceTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InsuranceTypeID,Title,Price")] InsuranceType insuranceType)
+        public async Task<IActionResult> Edit(int id, [Bind("InsuranceTypeID,Title")] InsuranceType insuranceType)
         {
             if (id != insuranceType.InsuranceTypeID)
             {
@@ -178,8 +116,7 @@ namespace web.Controllers
             return View(insuranceType);
         }
 
-        // GET: InsuranceType/Delete/5
-        [Authorize(Roles = "Administrator,Staff")]
+        // GET: InsuranceTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -197,7 +134,7 @@ namespace web.Controllers
             return View(insuranceType);
         }
 
-        // POST: InsuranceType/Delete/5
+        // POST: InsuranceTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
