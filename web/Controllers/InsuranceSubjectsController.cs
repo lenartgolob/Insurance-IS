@@ -51,8 +51,9 @@ namespace web.Controllers
         }
 
         // GET: InsuranceSubjects/Create
-        public IActionResult Create()
+        public IActionResult Create(string redirect)
         {
+            ViewData["redirect"] = redirect;
             PopulateSubjectTypesDropDownList();
             PopulateInsuredDropDownList();
             return View();
@@ -63,12 +64,18 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsuranceSubjectID,Title,Description,EstimatedValue,InsuranceSubjectTypeID,InsuredID")] InsuranceSubject insuranceSubject)
+        public async Task<IActionResult> Create([Bind("InsuranceSubjectID,Title,Description,EstimatedValue,InsuranceSubjectTypeID,InsuredID")] InsuranceSubject insuranceSubject, IFormCollection form)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(insuranceSubject);
                 await _context.SaveChangesAsync();
+                if(String.Equals(form["redirect"], "insure")){
+                    TempData["UserMessage"] = "alert-success";
+                    TempData["Title"] = "Success!";
+                    TempData["Message"] = "Successfully created an object.";
+                    return RedirectToAction("Insure", "Home");
+                }
                 return RedirectToAction(nameof(Index));
             }
             PopulateSubjectTypesDropDownList(insuranceSubject.InsuranceSubjectTypeID);

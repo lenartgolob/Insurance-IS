@@ -98,8 +98,9 @@ namespace web.Controllers
         }
 
         // GET: Insured/Create
-        public IActionResult Create()
+        public IActionResult Create(string redirect)
         {
+            ViewData["redirect"] = redirect;
             return View();
         }
 
@@ -108,7 +109,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LastName,FirstMidName")] Insured insured)
+        public async Task<IActionResult> Create([Bind("LastName,FirstMidName")] Insured insured, IFormCollection form)
         {
             try {
                 if (ModelState.IsValid)
@@ -116,6 +117,12 @@ namespace web.Controllers
                     insured.FullName = insured.FirstMidName + " " + insured.LastName;
                     _context.Add(insured);
                     await _context.SaveChangesAsync();
+                    if(String.Equals(form["redirect"], "insure")){
+                        TempData["UserMessage"] = "alert-success";
+                        TempData["Title"] = "Success!";
+                        TempData["Message"] = "Successfully registered client.";
+                        return RedirectToAction("Insure", "Home");
+                    }
                     return RedirectToAction(nameof(Index));
                 }
             }

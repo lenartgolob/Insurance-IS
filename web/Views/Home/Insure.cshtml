@@ -6,16 +6,18 @@
     <p>Use this page to create a insurance policy.</p>
     <hr />
     <p class="font-italic">You can skip 1. and 2. if client and/or object already exists.</p>
-    <p>1. Register client</p>
-    <div>
-        <a class="btn btn-primary" asp-area="" asp-controller="Insured" asp-action="Create">Register client</a>
-    </div>
-    <br />
-    <p>2. Create insurance object</p>
-    <div>
-        <a class="btn btn-primary" asp-area="" asp-controller="InsuranceSubjects" asp-action="Create">Create object</a>
-    </div>
-    <br />
+    <form asp-action="Create">
+        <p>1. Register client</p>
+        <div>
+            <a class="btn btn-primary" asp-area="" asp-controller="Insured" asp-action="Create" asp-route-redirect="insure">Register client</a>
+        </div>
+        <br />
+        <p>2. Create insurance object</p>
+        <div>
+            <a class="btn btn-primary" asp-area="" asp-controller="InsuranceSubjects" asp-action="Create" asp-route-redirect="insure">Create object</a>
+        </div>
+        <br />
+    </form>
     <p>3. Now conclude the insurance policy</p>
     <div>
         <a class="btn btn-primary" asp-area="" asp-controller="InsurancePolicy" asp-action="Create">Create Insurance Policy</a>

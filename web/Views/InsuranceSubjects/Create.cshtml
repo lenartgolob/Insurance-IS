@@ -41,6 +41,7 @@
                 </select>
                 <span asp-validation-for="InsuredID" class="text-danger" />
             </div>
+            @Html.Hidden("redirect", ViewData["redirect"])
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
