@@ -15,13 +15,15 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        // string path = Server.MapPath("~/Images/");
-        // string[] imageFiles = Directory.GetFiles(path);
-        // ViewBag.images = imageFiles;
         return View();
     }
 
     public IActionResult Admin()
+    {
+        return View();
+    }
+
+    public IActionResult Agent()
     {
         return View();
     }
