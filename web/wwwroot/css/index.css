@@ -24,3 +24,7 @@
 .logo-container img {
     width: 250px;
 }
+
+.font-italic {
+    font-style: italic;
+}
