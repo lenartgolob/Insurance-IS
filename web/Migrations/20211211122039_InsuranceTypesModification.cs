@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace web.Migrations
 {
-    public partial class DatabaseCorrection : Migration
+    public partial class InsuranceTypesModification : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -192,9 +192,7 @@ namespace web.Migrations
                     InsuranceTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateEdited = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -215,8 +213,8 @@ namespace web.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EstimatedValue = table.Column<decimal>(type: "money", nullable: false),
-                    InsuranceSubjectTypeID = table.Column<int>(type: "int", nullable: true),
-                    InsuredID1 = table.Column<int>(type: "int", nullable: true)
+                    InsuredID = table.Column<int>(type: "int", nullable: true),
+                    InsuranceSubjectTypeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -227,8 +225,8 @@ namespace web.Migrations
                         principalTable: "Insurance subject type",
                         principalColumn: "InsuranceSubjectTypeID");
                     table.ForeignKey(
-                        name: "FK_Insurance subject_Insured_InsuredID1",
-                        column: x => x.InsuredID1,
+                        name: "FK_Insurance subject_Insured_InsuredID",
+                        column: x => x.InsuredID,
                         principalTable: "Insured",
                         principalColumn: "ID");
                 });
@@ -241,14 +239,14 @@ namespace web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Rate = table.Column<decimal>(type: "money", nullable: false),
-                    InsuranceTypeID1 = table.Column<int>(type: "int", nullable: true)
+                    InsuranceTypeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Insurance subtype", x => x.InsuranceSubtypeID);
                     table.ForeignKey(
-                        name: "FK_Insurance subtype_Insurance type_InsuranceTypeID1",
-                        column: x => x.InsuranceTypeID1,
+                        name: "FK_Insurance subtype_Insurance type_InsuranceTypeID",
+                        column: x => x.InsuranceTypeID,
                         principalTable: "Insurance type",
                         principalColumn: "InsuranceTypeID");
                 });
@@ -263,20 +261,20 @@ namespace web.Migrations
                     DateFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     InsuredID = table.Column<int>(type: "int", nullable: true),
-                    InsuranceSubjectID1 = table.Column<int>(type: "int", nullable: true),
-                    InsuranceSubtypeID1 = table.Column<int>(type: "int", nullable: true)
+                    InsuranceSubjectID = table.Column<int>(type: "int", nullable: true),
+                    InsuranceSubtypeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Insurance policy", x => x.InsurancePolicyID);
                     table.ForeignKey(
-                        name: "FK_Insurance policy_Insurance subject_InsuranceSubjectID1",
-                        column: x => x.InsuranceSubjectID1,
+                        name: "FK_Insurance policy_Insurance subject_InsuranceSubjectID",
+                        column: x => x.InsuranceSubjectID,
                         principalTable: "Insurance subject",
                         principalColumn: "InsuranceSubjectID");
                     table.ForeignKey(
-                        name: "FK_Insurance policy_Insurance subtype_InsuranceSubtypeID1",
-                        column: x => x.InsuranceSubtypeID1,
+                        name: "FK_Insurance policy_Insurance subtype_InsuranceSubtypeID",
+                        column: x => x.InsuranceSubtypeID,
                         principalTable: "Insurance subtype",
                         principalColumn: "InsuranceSubtypeID");
                     table.ForeignKey(
@@ -326,14 +324,14 @@ namespace web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Insurance policy_InsuranceSubjectID1",
+                name: "IX_Insurance policy_InsuranceSubjectID",
                 table: "Insurance policy",
-                column: "InsuranceSubjectID1");
+                column: "InsuranceSubjectID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Insurance policy_InsuranceSubtypeID1",
+                name: "IX_Insurance policy_InsuranceSubtypeID",
                 table: "Insurance policy",
-                column: "InsuranceSubtypeID1");
+                column: "InsuranceSubtypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Insurance policy_InsuredID",
@@ -346,14 +344,14 @@ namespace web.Migrations
                 column: "InsuranceSubjectTypeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Insurance subject_InsuredID1",
+                name: "IX_Insurance subject_InsuredID",
                 table: "Insurance subject",
-                column: "InsuredID1");
+                column: "InsuredID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Insurance subtype_InsuranceTypeID1",
+                name: "IX_Insurance subtype_InsuranceTypeID",
                 table: "Insurance subtype",
-                column: "InsuranceTypeID1");
+                column: "InsuranceTypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Insurance type_OwnerId",

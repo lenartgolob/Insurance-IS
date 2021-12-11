@@ -1,7 +1,7 @@
 @model IEnumerable<web.Models.InsuranceSubject>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "InsuranceSubject";
 }
 
 <h1>Index</h1>
@@ -21,9 +21,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.EstimatedValue)
             </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.InsuranceSubjectType.Title)
-            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Insured)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsuranceSubjectType)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,9 +42,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EstimatedValue)
             </td>
-            @* <td>
-                @Html.DisplayFor(model => model.InsuranceSubjectType.Title)
-            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.InsuranceSubjectType.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Insured.FullName)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.InsuranceSubjectID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.InsuranceSubjectID">Details</a> |

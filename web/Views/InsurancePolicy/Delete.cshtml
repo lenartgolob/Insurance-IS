@@ -33,7 +33,19 @@
             @Html.DisplayNameFor(model => model.Insured)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Insured.LastName)
+            @Html.DisplayFor(model => model.Insured.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InsuranceSubject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InsuranceSubject.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InsuranceSubtype)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InsuranceSubtype.Title)
         </dd>
     </dl>
     

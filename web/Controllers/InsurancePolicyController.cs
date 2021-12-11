@@ -22,7 +22,12 @@ namespace web.Controllers
         // GET: InsurancePolicy
         public async Task<IActionResult> Index()
         {
-            return View(await _context.InsurancePolicy.ToListAsync());
+            var insurancePolicies = _context.InsurancePolicy
+                .Include(i => i.InsuranceSubject)
+                .Include(i => i.Insured)
+                .Include(i => i.InsuranceSubtype)
+                .AsNoTracking();
+            return View(await insurancePolicies.ToListAsync());
         }
 
         // GET: InsurancePolicy/Details/5
@@ -35,6 +40,8 @@ namespace web.Controllers
 
             var insurancePolicy = await _context.InsurancePolicy
                 .Include(p => p.Insured)
+                .Include(p => p.InsuranceSubject)
+                .Include(p => p.InsuranceSubtype)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsurancePolicyID == id);
             if (insurancePolicy == null)
@@ -49,6 +56,8 @@ namespace web.Controllers
         public IActionResult Create()
         {
             PopulateInsuredDropDownList();
+            PopulateSubjectsDropDownList();
+            PopulateSubtypesDropDownList();
             return View();
         }
 
@@ -57,15 +66,29 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsurancePolicyID,InsuredID,FinalSum,DateFrom,DateTo")] InsurancePolicy insurancePolicy)
+        public async Task<IActionResult> Create([Bind("InsurancePolicyID,DateFrom,DateTo,InsuredID,InsuranceSubjectID,InsuranceSubtypeID")] InsurancePolicy insurancePolicy)
         {
             if (ModelState.IsValid)
             {
+                var query = from s in _context.InsuranceSubject
+                            where s.InsuranceSubjectID == insurancePolicy.InsuranceSubjectID
+                            select s;
+                var subject = query.FirstOrDefault<InsuranceSubject>();
+                var query2 = from s in _context.InsuranceSubtype
+                            where s.InsuranceSubtypeID == insurancePolicy.InsuranceSubtypeID
+                            select s;
+                var subtype = query2.FirstOrDefault<InsuranceSubtype>();
+                
+                // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
+                insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
                 _context.Add(insurancePolicy);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             PopulateInsuredDropDownList(insurancePolicy.InsuredID);
+            PopulateSubjectsDropDownList(insurancePolicy.InsuranceSubjectID);
+            PopulateSubtypesDropDownList(insurancePolicy.InsuranceSubtypeID);
+
             return View(insurancePolicy);
         }
 
@@ -85,6 +108,9 @@ namespace web.Controllers
                 return NotFound();
             }
             PopulateInsuredDropDownList(insurancePolicy.InsuredID);
+            PopulateSubjectsDropDownList(insurancePolicy.InsuranceSubjectID);
+            PopulateSubtypesDropDownList(insurancePolicy.InsuranceSubtypeID);
+
             return View(insurancePolicy);
         }
 
@@ -93,7 +119,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InsurancePolicyID,FinalSum,DateFrom,DateTo")] InsurancePolicy insurancePolicy)
+        public async Task<IActionResult> Edit(int id, [Bind("InsurancePolicyID,FinalSum,DateFrom,DateTo,InsuredID,InsuranceSubjectID,InsuranceSubtypeID")] InsurancePolicy insurancePolicy)
         {
             if (id != insurancePolicy.InsurancePolicyID)
             {
@@ -104,6 +130,17 @@ namespace web.Controllers
             {
                 try
                 {
+                    var query = from s in _context.InsuranceSubject
+                                where s.InsuranceSubjectID == insurancePolicy.InsuranceSubjectID
+                                select s;
+                    var subject = query.FirstOrDefault<InsuranceSubject>();
+                    var query2 = from s in _context.InsuranceSubtype
+                                where s.InsuranceSubtypeID == insurancePolicy.InsuranceSubtypeID
+                                select s;
+                    var subtype = query2.FirstOrDefault<InsuranceSubtype>();
+                    
+                    // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
+                    insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
                     _context.Update(insurancePolicy);
                     await _context.SaveChangesAsync();
                 }
@@ -126,7 +163,7 @@ namespace web.Controllers
 
             // if (await TryUpdateModelAsync<InsurancePolicy>(insurancePolicyToUpdate,
             //     "",
-            //     p => p.FinalSum, p => p.InsuredID, p => p.DateFrom, p => p.DatoTo))
+            //     p => p.FinalSum, p => p.InsuredID, p => p.DateFrom, p => p.DatoTo, p => InsuranceSubjectID, p => InsuranceSubtypeID))
             // {
             //     try
             //     {
@@ -142,15 +179,33 @@ namespace web.Controllers
             //     return RedirectToAction(nameof(Index));
             // }
             // PopulateInsuredDropDownList(insurancePolicy.InsuredID);
+            // PopulateSubjectsDropDownList(insurancePolicy.InsuranceSubjectID);
+            // PopulateSubtypesDropDownList(insurancePolicy.InsuranceSubtypeID);
             // return View(insurancePolicyToUpdate);
         }
 
         private void PopulateInsuredDropDownList(object selectedInsured = null)
         {
             var insuredQuery = from i in _context.Insured
-                                orderby i.LastName
+                                orderby i.FullName
                                 select i;
             ViewBag.InsuredID = new SelectList(insuredQuery.AsNoTracking(), "ID", "FullName", selectedInsured);
+        }
+
+        private void PopulateSubjectsDropDownList(object selectedSubject = null)
+        {
+            var subjectQuery = from i in _context.InsuranceSubject
+                                orderby i.Title
+                                select i;
+            ViewBag.InsuranceSubjectID = new SelectList(subjectQuery.AsNoTracking(), "InsuranceSubjectID", "Title", selectedSubject);
+        }
+
+        private void PopulateSubtypesDropDownList(object selectedSubtype = null)
+        {
+            var subtypeQuery = from i in _context.InsuranceSubtype
+                                orderby i.Title
+                                select i;
+            ViewBag.InsuranceSubtypeID = new SelectList(subtypeQuery.AsNoTracking(), "InsuranceSubtypeID", "Title", selectedSubtype);
         }
 
         // GET: InsurancePolicy/Delete/5
@@ -163,6 +218,8 @@ namespace web.Controllers
 
             var insurancePolicy = await _context.InsurancePolicy
                 .Include(p => p.Insured)
+                .Include(p => p.InsuranceSubject)
+                .Include(p => p.InsuranceSubtype)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsurancePolicyID == id);
             if (insurancePolicy == null)

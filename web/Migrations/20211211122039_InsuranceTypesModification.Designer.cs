@@ -12,8 +12,8 @@ using web.Data;
 namespace web.Migrations
 {
     [DbContext(typeof(InsuranceContext))]
-    [Migration("20211129085717_DatabaseCorrection")]
-    partial class DatabaseCorrection
+    [Migration("20211211122039_InsuranceTypesModification")]
+    partial class InsuranceTypesModification
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -252,10 +252,10 @@ namespace web.Migrations
                     b.Property<decimal>("FinalSum")
                         .HasColumnType("money");
 
-                    b.Property<int?>("InsuranceSubjectID1")
+                    b.Property<int?>("InsuranceSubjectID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InsuranceSubtypeID1")
+                    b.Property<int?>("InsuranceSubtypeID")
                         .HasColumnType("int");
 
                     b.Property<int?>("InsuredID")
@@ -263,9 +263,9 @@ namespace web.Migrations
 
                     b.HasKey("InsurancePolicyID");
 
-                    b.HasIndex("InsuranceSubjectID1");
+                    b.HasIndex("InsuranceSubjectID");
 
-                    b.HasIndex("InsuranceSubtypeID1");
+                    b.HasIndex("InsuranceSubtypeID");
 
                     b.HasIndex("InsuredID");
 
@@ -290,7 +290,7 @@ namespace web.Migrations
                     b.Property<int?>("InsuranceSubjectTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InsuredID1")
+                    b.Property<int?>("InsuredID")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -302,7 +302,7 @@ namespace web.Migrations
 
                     b.HasIndex("InsuranceSubjectTypeID");
 
-                    b.HasIndex("InsuredID1");
+                    b.HasIndex("InsuredID");
 
                     b.ToTable("Insurance subject", (string)null);
                 });
@@ -333,7 +333,7 @@ namespace web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceSubtypeID"), 1L, 1);
 
-                    b.Property<int?>("InsuranceTypeID1")
+                    b.Property<int?>("InsuranceTypeID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Rate")
@@ -346,7 +346,7 @@ namespace web.Migrations
 
                     b.HasKey("InsuranceSubtypeID");
 
-                    b.HasIndex("InsuranceTypeID1");
+                    b.HasIndex("InsuranceTypeID");
 
                     b.ToTable("Insurance subtype", (string)null);
                 });
@@ -358,12 +358,6 @@ namespace web.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceTypeID"), 1L, 1);
-
-                    b.Property<DateTime?>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateEdited")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
@@ -460,11 +454,11 @@ namespace web.Migrations
                 {
                     b.HasOne("web.Models.InsuranceSubject", "InsuranceSubject")
                         .WithMany("InsurancePolicies")
-                        .HasForeignKey("InsuranceSubjectID1");
+                        .HasForeignKey("InsuranceSubjectID");
 
                     b.HasOne("web.Models.InsuranceSubtype", "InsuranceSubtype")
                         .WithMany("InsurancePolicies")
-                        .HasForeignKey("InsuranceSubtypeID1");
+                        .HasForeignKey("InsuranceSubtypeID");
 
                     b.HasOne("web.Models.Insured", "Insured")
                         .WithMany("InsurancePolicies")
@@ -483,18 +477,20 @@ namespace web.Migrations
                         .WithMany("InsuranceSubjects")
                         .HasForeignKey("InsuranceSubjectTypeID");
 
-                    b.HasOne("web.Models.Insured", null)
+                    b.HasOne("web.Models.Insured", "Insured")
                         .WithMany("InsuranceSubjects")
-                        .HasForeignKey("InsuredID1");
+                        .HasForeignKey("InsuredID");
 
                     b.Navigation("InsuranceSubjectType");
+
+                    b.Navigation("Insured");
                 });
 
             modelBuilder.Entity("web.Models.InsuranceSubtype", b =>
                 {
                     b.HasOne("web.Models.InsuranceType", "InsuranceType")
                         .WithMany("InsuranceSubtypes")
-                        .HasForeignKey("InsuranceTypeID1");
+                        .HasForeignKey("InsuranceTypeID");
 
                     b.Navigation("InsuranceType");
                 });

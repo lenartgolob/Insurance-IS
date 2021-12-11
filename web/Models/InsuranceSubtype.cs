@@ -12,11 +12,9 @@ namespace web.Models
         [StringLength(50)]
         public string Title { get; set; }
         [Required]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "money")]
         public decimal Rate { get; set; }
-        public int? InsuranceTypeID;
-        public InsuranceType? InsuranceType { get; set; }
+        public int? InsuranceTypeID { get; set; }
+        public virtual InsuranceType? InsuranceType { get; set; }
         public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
 
 

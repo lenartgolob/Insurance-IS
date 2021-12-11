@@ -13,11 +13,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FinalSum" class="control-label"></label>
-                <input asp-for="FinalSum" class="form-control" />
-                <span asp-validation-for="FinalSum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="DateFrom" class="control-label"></label>
                 <input asp-for="DateFrom" class="form-control" />
                 <span asp-validation-for="DateFrom" class="text-danger"></span>
@@ -35,6 +30,20 @@
                 <span asp-validation-for="InsuredID" class="text-danger" />
             </div>
             <div class="form-group">
+                <label asp-for="InsuranceSubject" class="control-label"></label>
+                <select asp-for="InsuranceSubjectID" class="form-control" asp-items="ViewBag.InsuranceSubjectID">
+                    <option value="">-- Select Object --</option>
+                </select>
+                <span asp-validation-for="InsuranceSubjectID" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="InsuranceSubtype" class="control-label"></label>
+                <select asp-for="InsuranceSubtypeID" class="form-control" asp-items="ViewBag.InsuranceSubtypeID">
+                    <option value="">-- Select Subtype --</option>
+                </select>
+                <span asp-validation-for="InsuranceSubtypeID" class="text-danger" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -44,4 +53,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

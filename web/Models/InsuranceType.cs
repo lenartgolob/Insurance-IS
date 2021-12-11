@@ -11,10 +11,9 @@ namespace web.Models
         public string Title { get; set; }
         public ApplicationUser? Owner { get; set; }
 
-        public DateTime? DateCreated { get; set; }
+        // public DateTime? DateCreated { get; set; }
 
-        public DateTime? DateEdited { get; set; }
+        // public DateTime? DateEdited { get; set; }
         public ICollection<InsuranceSubtype>? InsuranceSubtypes { get; set; }
-        // public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
     }
 }

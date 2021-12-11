@@ -8,19 +8,18 @@ namespace web.Models
     public class InsurancePolicy
     {
         public int InsurancePolicyID { get; set; }
-        // public int InsuranceTypeID { get; set; }
-        // public int InsuredID { get; set; }
+
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal FinalSum { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public int? InsuredID { get; set; }
-        public Insured? Insured { get; set; }
-        public int? InsuranceSubjectID;
-        public InsuranceSubject? InsuranceSubject { get; set; }
-        public int? InsuranceSubtypeID;
-        public InsuranceSubtype? InsuranceSubtype { get; set; }
+        public virtual Insured? Insured { get; set; }
+        public int? InsuranceSubjectID { get; set; }
+        public virtual InsuranceSubject? InsuranceSubject { get; set; }
+        public int? InsuranceSubtypeID { get; set; }
+        public virtual InsuranceSubtype? InsuranceSubtype { get; set; }
 
     }
 }

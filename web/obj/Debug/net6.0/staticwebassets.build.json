@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rm49lhS2DxnY2ZVgbdib3gn+jHLBnHxFQNMwROwuiNI=",
+  "Hash": "pe+yRCDSCQKGonLRZsCxOWAg6BqP2Uatw4daPJK6/tU=",
   "Source": "web",
   "BasePath": "_content/web",
   "Mode": "Default",
@@ -1241,6 +1241,23 @@
       "OriginalItemSpec": "wwwroot\\images\\insurance6.png"
     },
     {
+      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\insurance7.jpg",
+      "SourceId": "web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\",
+      "BasePath": "_content/web",
+      "RelativePath": "images/insurance7.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\insurance7.jpg"
+    },
+    {
       "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\logo-small.png",
       "SourceId": "web",
       "SourceType": "Discovered",
@@ -1273,6 +1290,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\logo.png"
+    },
+    {
+      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\Screenshot_1.jpg",
+      "SourceId": "web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\",
+      "BasePath": "_content/web",
+      "RelativePath": "images/Screenshot_1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Screenshot_1.jpg"
     },
     {
       "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\js\\site.js",

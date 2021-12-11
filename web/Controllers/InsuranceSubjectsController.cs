@@ -22,7 +22,11 @@ namespace web.Controllers
         // GET: InsuranceSubjects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.InsuranceSubject.ToListAsync());
+            var insuranceSubjects = _context.InsuranceSubject
+                .Include(i => i.Insured)
+                .Include(i => i.InsuranceSubjectType)
+                .AsNoTracking();
+            return View(await insuranceSubjects.ToListAsync());
         }
 
         // GET: InsuranceSubjects/Details/5
@@ -35,6 +39,7 @@ namespace web.Controllers
 
             var insuranceSubject = await _context.InsuranceSubject
                 .Include(t => t.InsuranceSubjectType)
+                .Include(t => t.Insured)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsuranceSubjectID == id);
             if (insuranceSubject == null)
@@ -58,7 +63,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsuranceSubjectID,Title,Description,EstimatedValue,InsuranceSubjectTypeID")] InsuranceSubject insuranceSubject)
+        public async Task<IActionResult> Create([Bind("InsuranceSubjectID,Title,Description,EstimatedValue,InsuranceSubjectTypeID,InsuredID")] InsuranceSubject insuranceSubject)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +101,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InsuranceSubjectID,Title,Description,EstimatedValue")] InsuranceSubject insuranceSubject)
+        public async Task<IActionResult> Edit(int id, [Bind("InsuranceSubjectID,Title,Description,EstimatedValue,InsuranceSubjectTypeID,InsuredID")] InsuranceSubject insuranceSubject)
         {
             if (id != insuranceSubject.InsuranceSubjectID)
             {
@@ -176,6 +181,7 @@ namespace web.Controllers
 
             var insuranceSubject = await _context.InsuranceSubject
                 .Include(t => t.InsuranceSubjectType)
+                .Include(t => t.Insured)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsuranceSubjectID == id);
             if (insuranceSubject == null)
