@@ -8,16 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
 using SelectPdf;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
     public class InsurancePolicyController : Controller
     {
         private readonly InsuranceContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public InsurancePolicyController(InsuranceContext context)
+        public InsurancePolicyController(InsuranceContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _usermanager = userManager;
         }
 
         public IActionResult GeneratePdf(string html)
@@ -69,6 +73,14 @@ namespace web.Controllers
                 return NotFound();
             }
 
+            string[] lines = insurancePolicy.InsuranceSubject.Description.Split(
+                new string[] { Environment.NewLine },
+                StringSplitOptions.None
+            );
+
+            ViewData["Description"] = lines;
+            ViewData["VAT"] = insurancePolicy.FinalSum * (decimal)0.22;
+            ViewData["withoutVAT"] = insurancePolicy.FinalSum - insurancePolicy.FinalSum * (decimal)0.22;
             return View(insurancePolicy);
         }
 
@@ -88,6 +100,8 @@ namespace web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InsurancePolicyID,DateFrom,DateTo,InsuredID,InsuranceSubjectID,InsuranceSubtypeID")] InsurancePolicy insurancePolicy)
         {
+            var currentUser = await _usermanager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
                 var query = from s in _context.InsuranceSubject
@@ -101,6 +115,7 @@ namespace web.Controllers
                 
                 // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
                 insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
+                insurancePolicy.Owner = currentUser;
                 _context.Add(insurancePolicy);
                 await _context.SaveChangesAsync();        
                 return RedirectToAction(nameof(Index));

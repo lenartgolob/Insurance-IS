@@ -20,6 +20,8 @@ public class HomeController : Controller
 
     public IActionResult Admin()
     {
+        ViewBag.Data = "Value,Value1,Value2,Value3"; //list of strings that you need to show on the chart. as mentioned in the example from c-sharpcorner
+        ViewBag.ObjectName = "Test,Test1,Test2,Test3";
         return View();
     }
 

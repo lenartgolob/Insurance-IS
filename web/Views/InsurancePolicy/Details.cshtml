@@ -2,56 +2,54 @@
 
 @{
     ViewData["Title"] = "Details";
+    var st = 0;
 }
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <h1>Details</h1>
 
-<div id="pdfContainer">
-    <div style="text-align: center"><h3 style="display: inline; margin-right: 7px;">Insurance-IS</h3><img style="width: 80px; margin-left: 7px;" class="logo" src="/images/logo-small.png" alt="logo"></div>
-    <hr />
-    <div style="display: flex; justify-content: space-between;">
-        <h4>Insurance Policy</h4>
-        <p>Number: @Html.DisplayFor(model => model.InsurancePolicyID)</p>
+<div id="pdfContainer" >
+    <div style="margin: 20px">
+        <div style="text-align: center"><h3 style="display: inline; margin-right: 7px;">Insurance-IS</h3><img style="width: 80px; margin-left: 7px;" class="logo" src="/images/logo-small.png" alt="logo"></div>
+        <hr />
+        <div style="display: flex; justify-content: space-between;">
+            <h5 style="margin-bottom: 3px;">Insurance Policy</h5>
+            <p style="margin-bottom: 3px;">Number: @Html.DisplayFor(model => model.InsurancePolicyID)</p>
+        </div>
+        <hr />
+        <div style="display: flex;">
+            <div style="width:65%;">
+                <p style="margin-bottom: 10px;">Company Branch: Insurance-IS Ljubljana</p>
+                <p style="margin-bottom: 0;">Insurance Policy serial number: @Html.DisplayFor(model => model.InsurancePolicyID)</p>
+            </div>
+            <div style="width:35%;">
+                <p style="margin-bottom: 10px;">Start of insurance: @Html.DisplayFor(model => model.DateFrom)</p>
+                <p style="margin-bottom: 0;">End of insurance: @Html.DisplayFor(model => model.DateTo)</p>
+            </div>
+        </div>
+        <hr />
+        <p>Insured: <span style="font-weight: bold;">@Html.DisplayFor(model => model.Insured.FullName), @Html.DisplayFor(model => model.Insured.Address), @Html.DisplayFor(model => model.Insured.ZipCode)</span></p>
+        <hr />
+        <p style="margin-bottom: 5px;">Insurance object: <span style="font-weight: bold;">@Html.DisplayFor(model => model.InsuranceSubject.Title)</span></p>
+        <div style="display: inline">
+        @foreach (var line in (IEnumerable<string>)ViewData["Description"]) {
+            @if(st%2==0) {
+                <p style="margin-bottom: 1px; font-size: 90%; width: 65%; float: left;">@line</p>
+            }
+            else {
+                <p style="margin-bottom: 1px; font-size: 90%; text-align: left; width: 35%; float: left;">@line</p>
+            }
+            st = st+1;
+        }
+        </div>
+        <hr style="clear: both;" />
+        <p style="margin-bottom: 3px;">Insurance: <span style="font-weight: bold;">@Html.DisplayFor(model => model.InsuranceSubtype.Title)</span></p>
+        <p>@Html.DisplayFor(model => model.InsuranceSubtype.Description)</p>
+        <hr />
+        <p style="text-align: right;">Price without VAT: @string.Format("{0:C}", ViewData["withoutVAT"])</p>
+        <p style="text-align: right;">+ @string.Format("{0:C}", ViewData["VAT"])</p>
+        <hr />
+        <p style="text-align: right;">Final price: <span style="font-weight: bold;">@Html.DisplayFor(model => model.FinalSum)</span></p>
     </div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FinalSum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FinalSum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateFrom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateFrom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateTo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateTo)
-        </dd>
-                <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Insured)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Insured.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InsuranceSubject)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InsuranceSubject.Title)
-        </dd>
-                <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InsuranceSubtype)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InsuranceSubtype.Title)
-        </dd>
-    </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.InsurancePolicyID">Edit</a> |
@@ -63,7 +61,7 @@
 <script type="text/javascript">
     $("#btnPdf").click(function () {
         var sHtml = $("#pdfContainer").html();
-        sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag");
+        sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag").replace("20px", "100px").replace("h3", "h2").replace("h5", "h4");
         window.open('../../InsurancePolicy/GeneratePDF?html=' + sHtml, '_blank')
     });
 </script>

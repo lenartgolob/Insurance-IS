@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "yUFIGUhP6Lg3NfVRX2i0ZgQmeGRNRdw0atu1vDmZ2I1NNT90+4Ri7SPwxuumdUzUUdMCSzDoSQGfZ8vkMD2HAw==",
+  "dgSpecHash": "QsmFrjnDaapZYvEcaJZLiREKRL13z6lTLDYgkPvdE+h17iRZ+WDItCOA4kifAOwjELqPDa56MVtVokvd06ERLQ==",
   "success": true,
   "projectFilePath": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenar\\.nuget\\packages\\bouncycastle\\1.8.6.1\\bouncycastle.1.8.6.1.nupkg.sha512",
+    "C:\\Users\\lenar\\.nuget\\packages\\chart.js\\2.9.3\\chart.js.2.9.3.nupkg.sha512",
     "C:\\Users\\lenar\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lenar\\.nuget\\packages\\itextsharp\\5.5.13.2\\itextsharp.5.5.13.2.nupkg.sha512",
     "C:\\Users\\lenar\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

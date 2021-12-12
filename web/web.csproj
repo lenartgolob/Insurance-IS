@@ -13,5 +13,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.0-rc.2.21480.10"/>
     <PackageReference Include="iTextSharp" Version="5.5.13.2"/>
     <PackageReference Include="Select.HtmlToPdf.NetCore" Version="21.2.0"/>
+    <PackageReference Include="Chart.js" Version="2.9.3"/>
   </ItemGroup>
 </Project>
