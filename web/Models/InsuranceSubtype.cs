@@ -13,6 +13,8 @@ namespace web.Models
         public string Title { get; set; }
         [Required]
         public decimal Rate { get; set; }
+        [Required]
+        public string Description { get; set; }
         public int? InsuranceTypeID { get; set; }
         public virtual InsuranceType? InsuranceType { get; set; }
         public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }

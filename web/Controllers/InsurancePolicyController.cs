@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using SelectPdf;
 
 namespace web.Controllers
 {
@@ -17,6 +18,25 @@ namespace web.Controllers
         public InsurancePolicyController(InsuranceContext context)
         {
             _context = context;
+        }
+
+        public IActionResult GeneratePdf(string html)
+        {
+            string baseUrl = string.Format("{0}://{1}", 
+                       HttpContext.Request.Scheme, HttpContext.Request.Host);
+
+            html = html.Replace("StrTag", "<").Replace("EndTag", ">");
+
+            HtmlToPdf oHtmlToPdf = new HtmlToPdf();
+            PdfDocument oPdfDocument = oHtmlToPdf.ConvertHtmlString(html, baseUrl);
+            byte[] pdf = oPdfDocument.Save();
+            oPdfDocument.Close();
+
+            return File(
+                pdf,
+                "application/pdf",
+                "InsurancePolicy.pdf"
+            );
         }
 
         // GET: InsurancePolicy
@@ -82,7 +102,7 @@ namespace web.Controllers
                 // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
                 insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
                 _context.Add(insurancePolicy);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();        
                 return RedirectToAction(nameof(Index));
             }
             PopulateInsuredDropDownList(insurancePolicy.InsuredID);

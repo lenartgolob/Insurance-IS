@@ -61,7 +61,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsuranceSubtypeID,Title,Rate,InsuranceTypeID")] InsuranceSubtype insuranceSubtype)
+        public async Task<IActionResult> Create([Bind("InsuranceSubtypeID,Title,Rate,Description,InsuranceTypeID")] InsuranceSubtype insuranceSubtype)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InsuranceSubtypeID,Title,Rate,InsuranceTypeID")] InsuranceSubtype insuranceSubtype)
+        public async Task<IActionResult> Edit(int id, [Bind("InsuranceSubtypeID,Title,Rate,Description,InsuranceTypeID")] InsuranceSubtype insuranceSubtype)
         {
             if (id != insuranceSubtype.InsuranceSubtypeID)
             {

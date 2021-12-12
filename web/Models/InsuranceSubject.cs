@@ -11,7 +11,9 @@ namespace web.Models
         [Required]
         [StringLength(50)]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal EstimatedValue { get; set; }

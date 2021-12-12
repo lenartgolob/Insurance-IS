@@ -109,7 +109,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LastName,FirstMidName")] Insured insured, IFormCollection form)
+        public async Task<IActionResult> Create([Bind("LastName,FirstMidName,Address,ZipCode")] Insured insured, IFormCollection form)
         {
             try {
                 if (ModelState.IsValid)
@@ -156,7 +156,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstMidName")] Insured insured)
+        public async Task<IActionResult> Edit(int id, [Bind("LastName,FirstMidName,Address,ZipCode")] Insured insured)
         {
             if (id != insured.ID)
             {

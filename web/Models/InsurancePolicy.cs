@@ -12,7 +12,9 @@ namespace web.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal FinalSum { get; set; }
+        [Required]
         public DateTime DateFrom { get; set; }
+        [Required]
         public DateTime DateTo { get; set; }
         public int? InsuredID { get; set; }
         public virtual Insured? Insured { get; set; }

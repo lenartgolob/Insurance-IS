@@ -22,10 +22,23 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FirstMidName)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.InsurancePolicies)
         </dt>
+        
         <dd class="col-sm-10">
             <table class="table">
                 <tr>

@@ -3,11 +3,16 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <h1>Details</h1>
 
-<div>
-    <h4>InsurancePolicy</h4>
+<div id="pdfContainer">
+    <div style="text-align: center"><h3 style="display: inline; margin-right: 7px;">Insurance-IS</h3><img style="width: 80px; margin-left: 7px;" class="logo" src="/images/logo-small.png" alt="logo"></div>
+    <hr />
+    <div style="display: flex; justify-content: space-between;">
+        <h4>Insurance Policy</h4>
+        <p>Number: @Html.DisplayFor(model => model.InsurancePolicyID)</p>
+    </div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -52,3 +57,13 @@
     <a asp-action="Edit" asp-route-id="@Model.InsurancePolicyID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<div class="text-center">
+    <button id="btnPdf" class="btn btn-primary">Generate PDF</button>
+</div>
+<script type="text/javascript">
+    $("#btnPdf").click(function () {
+        var sHtml = $("#pdfContainer").html();
+        sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag");
+        window.open('../../InsurancePolicy/GeneratePDF?html=' + sHtml, '_blank')
+    });
+</script>
