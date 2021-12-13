@@ -11,3 +11,60 @@
 .mycard {
     width: 500px !important;
 }
+
+.canvas {
+    width: 750px;
+    height: 750px;
+}
+
+.card-body {
+    height: 100px;
+}
+
+.clients-panel {
+    background-image: url("../images/clients.png");
+    background-size: 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.object-panel {
+    background-image: url("../images/object.png");
+    background-size: 85px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.policy-panel {
+    background-image: url("../images/policy.png");
+    background-size: 75px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.types-panel {
+    background-image: url("../images/types.png");
+    background-size: 130px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.subtypes-panel {
+    background-image: url("../images/subtypes.png");
+    background-size: 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+.object-types-panel {
+    background-image: url("../images/objectTypes.png");
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
