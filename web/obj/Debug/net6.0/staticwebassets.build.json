@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hdXDvoGAv9uwF8xL9p1OytFRL4d2xy7OpVfi2ptqHuU=",
+  "Hash": "X+JduKvSZ9oe5pw4rdsT1FE29FQZunt66bHJ8/yfjPk=",
   "Source": "web",
   "BasePath": "_content/web",
   "Mode": "Default",
@@ -1139,6 +1139,40 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\APS1_-_teorija_4 (1).pdf",
+      "SourceId": "web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\",
+      "BasePath": "_content/web",
+      "RelativePath": "images/APS1_-_teorija_4 (1).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\APS1_-_teorija_4 (1).pdf"
+    },
+    {
+      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\APS1_-_teorija_4.pdf",
+      "SourceId": "web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\",
+      "BasePath": "_content/web",
+      "RelativePath": "images/APS1_-_teorija_4.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\APS1_-_teorija_4.pdf"
+    },
+    {
       "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\clients.png",
       "SourceId": "web",
       "SourceType": "Discovered",
@@ -1154,6 +1188,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\clients.png"
+    },
+    {
+      "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\CREATE_OR_REPLACE_FUNCTION_osebe.docx",
+      "SourceId": "web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\",
+      "BasePath": "_content/web",
+      "RelativePath": "images/CREATE_OR_REPLACE_FUNCTION_osebe.docx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\CREATE_OR_REPLACE_FUNCTION_osebe.docx"
     },
     {
       "Identity": "D:\\Lenart Golob\\Dokumenti\\ŠOLA\\FRI\\2.letnik\\IS\\Insurance-IS\\web\\wwwroot\\images\\insurance1.jpg",

@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Create";
+    @* List<InsuranceSubject> insuranceSubjects = new List<InsuranceSubject>();
+    @foreach(var subject in (IEnumerable<InsuranceSubject>)ViewData["InsuranceSubject"]){
+        insuranceSubjects.Add(subject);
+    }
+    List<InsuranceSubject> insuranceSubjectsFiltered = insuranceSubjects;
+    int st = 0; *@
+    Console.WriteLine(ViewData["InsuranceSubject"]);
 }
 
 <h1>Create</h1>
@@ -24,15 +31,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Insured" class="control-label"></label>
-                <select asp-for="InsuredID" class="form-control" asp-items="ViewBag.InsuredID">
-                    <option value="">-- Select Insured --</option>
+                <select id="selectInsured" asp-for="InsuredID" class="form-control" asp-items="ViewBag.InsuredID" onchange="validate()" >
+                    <option value="none">-- Select Insured --</option>
                 </select>
                 <span asp-validation-for="InsuredID" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="InsuranceSubject" class="control-label"></label>
-                <select asp-for="InsuranceSubjectID" class="form-control" asp-items="ViewBag.InsuranceSubjectID">
+                <select id="selectObject" asp-for="InsuranceSubjectID" class="form-control" >
                     <option value="">-- Select Object --</option>
+                    @* @foreach(var subject in insuranceSubjectsFiltered){
+                        <option value="@subject.InsuranceSubjectID">@subject.Title</option>
+                    } *@
                 </select>
                 <span asp-validation-for="InsuranceSubjectID" class="text-danger" />
             </div>
@@ -53,3 +63,40 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<script>
+    var jsonSubjects = @Html.Raw(ViewData["InsuranceSubject"]);
+    var subjectSize = parseInt(@ViewData["subjectSize"]);
+
+
+
+    var selectObject = document.getElementById("selectObject");
+    selectObject.disabled = true;
+    var selectSubjects = document.getElementById("selectObject");
+    function validate()
+    {
+        var ddl = document.getElementById("selectInsured");
+        var selectedValue = parseInt(ddl.options[ddl.selectedIndex].value);
+        if (Number.isInteger(selectedValue)){
+            selectObject.disabled = false;
+        } else {
+            selectObject.disabled = true;
+        }
+        var size = selectObject.options.length - 1;
+        if(size == 1){
+            selectObject.disabled = true;
+        }
+        for(i = size; i >= 1; i--) {
+            selectObject.remove(i);
+        }
+        for(let i=0; i<subjectSize; i++){
+            if(selectedValue == parseInt(jsonSubjects[i].InsuredID)){
+                var opt = document.createElement("option");
+                opt.value= jsonSubjects[i].InsuranceSubjectID;
+                opt.innerHTML = jsonSubjects[i].Title;
+                selectObject.appendChild(opt);
+            }
+
+        }
+
+    }
+</script>

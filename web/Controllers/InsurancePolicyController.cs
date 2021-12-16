@@ -232,7 +232,8 @@ namespace web.Controllers
             var subjectQuery = from i in _context.InsuranceSubject
                                 orderby i.Title
                                 select i;
-            ViewBag.InsuranceSubjectID = new SelectList(subjectQuery.AsNoTracking(), "InsuranceSubjectID", "Title", selectedSubject);
+            ViewData["subjectSize"] = subjectQuery.Count();
+            ViewData["InsuranceSubject"] = Newtonsoft.Json.JsonConvert.SerializeObject(subjectQuery);
         }
 
         private void PopulateSubtypesDropDownList(object selectedSubtype = null)
