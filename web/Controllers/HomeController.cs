@@ -33,7 +33,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Admin()
+    public async Task<IActionResult> Admin()
     {
         List<string> subtypes = new List<string>();
         List<int> subtypeInstances = new List<int>();
@@ -43,8 +43,11 @@ public class HomeController : Controller
             var query2 = from p in _context.InsurancePolicy
                      where p.InsuranceSubtypeID == subtype.InsuranceSubtypeID
                      select p;
-            subtypes.Add(subtype.Title);
-            subtypeInstances.Add(query2.ToList().Count);
+            int instances = query2.ToList().Count;
+            if(instances >= 1){
+                subtypes.Add(subtype.Title);
+                subtypeInstances.Add(instances);
+            }
         }
         ViewData["subtypes"] = subtypes;
         ViewData["subtypeInstances"] = subtypeInstances;
@@ -56,10 +59,32 @@ public class HomeController : Controller
             insuranceTypes.Add(type.Title);
         }
         ViewData["types"] = insuranceTypes;
-        // List<string> insuranceAgents = new List<string>();
-        // var queryAgents = from u in db.Users
-        //             select u;
-        // Console.WriteLine(queryAgents);
+
+        var queryPolicies = from p in _context.InsurancePolicy
+            select p;
+        
+        var users = await _usermanager.Users.ToListAsync();
+        Dictionary<string, List<decimal>> userSumByTypeDict = new Dictionary<string, List<decimal>>();
+        foreach(ApplicationUser user in users){
+            List<decimal> userSumByTypeList = new List<decimal>();
+            foreach(InsuranceType type in queryTypes){
+                decimal userSumByType = 0;
+                foreach(InsuranceSubtype subtype in query){
+                    if(type.InsuranceTypeID == subtype.InsuranceTypeID){
+                        foreach(InsurancePolicy policy in queryPolicies){
+                            if(policy.InsuranceSubtypeID == subtype.InsuranceSubtypeID && user.Id == policy.OwnerID){
+                                userSumByType = userSumByType + policy.FinalSum;
+                            }
+                        }
+                    }
+                }
+                userSumByTypeList.Add(userSumByType);
+            }
+            string fullName = user.FirstName + " " + user.LastName;
+            userSumByTypeDict.Add(fullName, userSumByTypeList);
+        }
+        ViewData["userSumByType"] = Newtonsoft.Json.JsonConvert.SerializeObject(userSumByTypeDict);
+        ViewData["users"] = Newtonsoft.Json.JsonConvert.SerializeObject(users);
         return View();
     }
 
