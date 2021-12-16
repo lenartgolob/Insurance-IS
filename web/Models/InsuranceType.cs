@@ -11,7 +11,6 @@ namespace web.Models
         public int InsuranceTypeID { get; set; }
         [Required]
         public string Title { get; set; }
-        // public ApplicationUser? Owner { get; set; }
         public ICollection<InsuranceSubtype>? InsuranceSubtypes { get; set; }
     }
 }

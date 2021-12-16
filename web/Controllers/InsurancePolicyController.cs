@@ -8,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
 using SelectPdf;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace web.Controllers
 {
@@ -72,7 +74,13 @@ namespace web.Controllers
             {
                 return NotFound();
             }
-
+            var users = await _usermanager.Users.ToListAsync();
+            foreach (ApplicationUser user in users)
+            {
+                if(String.Equals(user.Id, insurancePolicy.OwnerID)){
+                    ViewData["Owner"] = user.FirstName + " " + user.LastName;
+                }
+            }
             string[] lines = insurancePolicy.InsuranceSubject.Description.Split(
                 new string[] { Environment.NewLine },
                 StringSplitOptions.None
@@ -115,7 +123,7 @@ namespace web.Controllers
                 
                 // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
                 insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
-                insurancePolicy.Owner = currentUser;
+                insurancePolicy.OwnerID = currentUser.Id;
                 _context.Add(insurancePolicy);
                 await _context.SaveChangesAsync();        
                 return RedirectToAction(nameof(Index));

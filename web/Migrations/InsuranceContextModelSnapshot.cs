@@ -259,8 +259,8 @@ namespace web.Migrations
                     b.Property<int?>("InsuredID")
                         .HasColumnType("int");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("OwnerID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("InsurancePolicyID");
 
@@ -269,8 +269,6 @@ namespace web.Migrations
                     b.HasIndex("InsuranceSubtypeID");
 
                     b.HasIndex("InsuredID");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("Insurance policy", (string)null);
                 });
@@ -474,17 +472,11 @@ namespace web.Migrations
                         .WithMany("InsurancePolicies")
                         .HasForeignKey("InsuredID");
 
-                    b.HasOne("web.Models.ApplicationUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-
                     b.Navigation("InsuranceSubject");
 
                     b.Navigation("InsuranceSubtype");
 
                     b.Navigation("Insured");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("web.Models.InsuranceSubject", b =>

@@ -28,6 +28,7 @@
         </div>
         <hr />
         <p>Insured: <span style="font-weight: bold;">@Html.DisplayFor(model => model.Insured.FullName), @Html.DisplayFor(model => model.Insured.Address), @Html.DisplayFor(model => model.Insured.ZipCode)</span></p>
+        <p>Insurance agent: <span style="font-weight: bold;">@ViewData["Owner"], Insurance-IS, 1000 Ljubljana</span></p>
         <hr />
         <p style="margin-bottom: 5px;">Insurance object: <span style="font-weight: bold;">@Html.DisplayFor(model => model.InsuranceSubject.Title)</span></p>
         <div style="display: inline">

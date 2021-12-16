@@ -16,7 +16,7 @@ namespace web.Models
         public DateTime DateFrom { get; set; }
         [Required]
         public DateTime DateTo { get; set; }
-        public ApplicationUser? Owner { get; set; }
+        public string? OwnerID { get; set; }
         public int? InsuredID { get; set; }
         public virtual Insured? Insured { get; set; }
         public int? InsuranceSubjectID { get; set; }

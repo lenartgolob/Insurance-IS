@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace web.Migrations
 {
-    public partial class InsuranceTypesModification : Migration
+    public partial class Restart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +65,19 @@ namespace web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Insurance type",
+                columns: table => new
+                {
+                    InsuranceTypeID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Insurance type", x => x.InsuranceTypeID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Insured",
                 columns: table => new
                 {
@@ -72,6 +85,8 @@ namespace web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirstMidName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -186,22 +201,24 @@ namespace web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Insurance type",
+                name: "Insurance subtype",
                 columns: table => new
                 {
-                    InsuranceTypeID = table.Column<int>(type: "int", nullable: false)
+                    InsuranceSubtypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InsuranceTypeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Insurance type", x => x.InsuranceTypeID);
+                    table.PrimaryKey("PK_Insurance subtype", x => x.InsuranceSubtypeID);
                     table.ForeignKey(
-                        name: "FK_Insurance type_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        name: "FK_Insurance subtype_Insurance type_InsuranceTypeID",
+                        column: x => x.InsuranceTypeID,
+                        principalTable: "Insurance type",
+                        principalColumn: "InsuranceTypeID");
                 });
 
             migrationBuilder.CreateTable(
@@ -232,26 +249,6 @@ namespace web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Insurance subtype",
-                columns: table => new
-                {
-                    InsuranceSubtypeID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Rate = table.Column<decimal>(type: "money", nullable: false),
-                    InsuranceTypeID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Insurance subtype", x => x.InsuranceSubtypeID);
-                    table.ForeignKey(
-                        name: "FK_Insurance subtype_Insurance type_InsuranceTypeID",
-                        column: x => x.InsuranceTypeID,
-                        principalTable: "Insurance type",
-                        principalColumn: "InsuranceTypeID");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Insurance policy",
                 columns: table => new
                 {
@@ -260,6 +257,7 @@ namespace web.Migrations
                     FinalSum = table.Column<decimal>(type: "money", nullable: false),
                     DateFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OwnerID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InsuredID = table.Column<int>(type: "int", nullable: true),
                     InsuranceSubjectID = table.Column<int>(type: "int", nullable: true),
                     InsuranceSubtypeID = table.Column<int>(type: "int", nullable: true)
@@ -352,11 +350,6 @@ namespace web.Migrations
                 name: "IX_Insurance subtype_InsuranceTypeID",
                 table: "Insurance subtype",
                 column: "InsuranceTypeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Insurance type_OwnerId",
-                table: "Insurance type",
-                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -383,6 +376,9 @@ namespace web.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Insurance subject");
 
             migrationBuilder.DropTable(
@@ -396,9 +392,6 @@ namespace web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Insurance type");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }
