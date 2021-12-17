@@ -240,6 +240,7 @@ namespace web.Controllers
             var subjectQuery = from i in _context.InsuranceSubject
                                 orderby i.Title
                                 select i;
+            ViewBag.InsuranceSubjectID = new SelectList(subjectQuery.AsNoTracking(), "InsuranceSubjectID", "Title", selectedSubject);
             ViewData["subjectSize"] = subjectQuery.Count();
             ViewData["InsuranceSubject"] = Newtonsoft.Json.JsonConvert.SerializeObject(subjectQuery);
         }
@@ -249,6 +250,16 @@ namespace web.Controllers
             var subtypeQuery = from i in _context.InsuranceSubtype
                                 orderby i.Title
                                 select i;
+            var joinTypeQuery = from s in _context.InsuranceSubject
+                join st in _context.InsuranceSubjectType on s.InsuranceSubjectTypeID equals st.InsuranceSubjectTypeID
+                join t in _context.InsuranceType on st.InsuranceTypeID equals t.InsuranceTypeID
+                orderby s.Title
+                select new {s.InsuranceSubjectID, s.Title, st.InsuranceSubjectTypeID, t.InsuranceTypeID};
+            ViewData["InsuranceSubtype"] = Newtonsoft.Json.JsonConvert.SerializeObject(subtypeQuery);     
+            ViewData["joinSubtype"] = Newtonsoft.Json.JsonConvert.SerializeObject(joinTypeQuery);   
+            ViewData["joinSize"] = joinTypeQuery.Count();
+            ViewData["subtypesSize"] = subtypeQuery.Count();
+
             ViewBag.InsuranceSubtypeID = new SelectList(subtypeQuery.AsNoTracking(), "InsuranceSubtypeID", "Title", selectedSubtype);
         }
 

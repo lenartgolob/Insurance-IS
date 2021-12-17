@@ -12,5 +12,7 @@ namespace web.Models
         [Required]
         public string Title { get; set; }
         public ICollection<InsuranceSubtype>? InsuranceSubtypes { get; set; }
+        public ICollection<InsuranceSubjectType>? InsuranceSubjectTypes { get; set; }
+
     }
 }

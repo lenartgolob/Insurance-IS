@@ -38,14 +38,14 @@
             <div class="form-group">
                 <label asp-for="InsuranceSubject" class="control-label"></label>
                 <select asp-for="InsuranceSubjectID" class="form-control" asp-items="ViewBag.InsuranceSubjectID">
-                    <option value="">-- Select Insured --</option>
+                    <option value="">-- Select Insurance Object --</option>
                 </select>
                 <span asp-validation-for="InsuranceSubjectID" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="InsuranceSubtype" class="control-label"></label>
                 <select asp-for="InsuranceSubtypeID" class="form-control" asp-items="ViewBag.InsuranceSubtypeID">
-                    <option value="">-- Select Insured --</option>
+                    <option value="">-- Select Insurance Subtype --</option>
                 </select>
                 <span asp-validation-for="InsuranceSubtypeID" class="text-danger" />
             </div>

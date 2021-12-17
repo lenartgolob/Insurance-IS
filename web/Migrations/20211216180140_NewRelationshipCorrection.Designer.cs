@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
@@ -11,9 +12,10 @@ using web.Data;
 namespace web.Migrations
 {
     [DbContext(typeof(InsuranceContext))]
-    partial class InsuranceContextModelSnapshot : ModelSnapshot
+    [Migration("20211216180140_NewRelationshipCorrection")]
+    partial class NewRelationshipCorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -502,7 +504,7 @@ namespace web.Migrations
             modelBuilder.Entity("web.Models.InsuranceSubjectType", b =>
                 {
                     b.HasOne("web.Models.InsuranceType", "InsuranceType")
-                        .WithMany("InsuranceSubjectTypes")
+                        .WithMany("InsuranceSubjectType")
                         .HasForeignKey("InsuranceTypeID");
 
                     b.Navigation("InsuranceType");
@@ -534,7 +536,7 @@ namespace web.Migrations
 
             modelBuilder.Entity("web.Models.InsuranceType", b =>
                 {
-                    b.Navigation("InsuranceSubjectTypes");
+                    b.Navigation("InsuranceSubjectType");
 
                     b.Navigation("InsuranceSubtypes");
                 });

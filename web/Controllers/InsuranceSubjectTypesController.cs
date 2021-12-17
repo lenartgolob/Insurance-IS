@@ -22,7 +22,10 @@ namespace web.Controllers
         // GET: InsuranceSubjectTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.InsuranceSubjectType.ToListAsync());
+            var insuranceSubjectTypes = _context.InsuranceSubjectType
+                .Include(i => i.InsuranceType)
+                .AsNoTracking();
+            return View(await insuranceSubjectTypes.ToListAsync());
         }
 
         // GET: InsuranceSubjectTypes/Details/5
@@ -34,6 +37,8 @@ namespace web.Controllers
             }
 
             var insuranceSubjectType = await _context.InsuranceSubjectType
+                .Include(i => i.InsuranceType)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsuranceSubjectTypeID == id);
             if (insuranceSubjectType == null)
             {
@@ -46,6 +51,7 @@ namespace web.Controllers
         // GET: InsuranceSubjectTypes/Create
         public IActionResult Create()
         {
+            PopulateTypesDropDownList();
             return View();
         }
 
@@ -54,7 +60,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InsuranceSubjectTypeID,Title")] InsuranceSubjectType insuranceSubjectType)
+        public async Task<IActionResult> Create([Bind("InsuranceSubjectTypeID,Title,InsuranceTypeID")] InsuranceSubjectType insuranceSubjectType)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +68,7 @@ namespace web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            PopulateTypesDropDownList(insuranceSubjectType.InsuranceTypeID);
             return View(insuranceSubjectType);
         }
 
@@ -73,11 +80,14 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var insuranceSubjectType = await _context.InsuranceSubjectType.FindAsync(id);
+            var insuranceSubjectType = await _context.InsuranceSubjectType
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.InsuranceSubjectTypeID == id);
             if (insuranceSubjectType == null)
             {
                 return NotFound();
             }
+            PopulateTypesDropDownList(insuranceSubjectType.InsuranceTypeID);
             return View(insuranceSubjectType);
         }
 
@@ -86,34 +96,63 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InsuranceSubjectTypeID,Title")] InsuranceSubjectType insuranceSubjectType)
+        public async Task<IActionResult> Edit(int id, [Bind("InsuranceSubjectTypeID,Title,InsuranceTypeID")] InsuranceSubjectType insuranceSubjectType)
         {
             if (id != insuranceSubjectType.InsuranceSubjectTypeID)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            // if (ModelState.IsValid)
+            // {
+            //     try
+            //     {
+            //         _context.Update(insuranceSubjectType);
+            //         await _context.SaveChangesAsync();
+            //     }
+            //     catch (DbUpdateConcurrencyException)
+            //     {
+            //         if (!InsuranceSubjectTypeExists(insuranceSubjectType.InsuranceSubjectTypeID))
+            //         {
+            //             return NotFound();
+            //         }
+            //         else
+            //         {
+            //             throw;
+            //         }
+            //     }
+            //     return RedirectToAction(nameof(Index));
+            // }
+            var insuranceSubjectTypeToUpdate = await _context.InsuranceSubjectType
+                .FirstOrDefaultAsync(c => c.InsuranceSubjectTypeID == id);
+
+            if (await TryUpdateModelAsync<InsuranceSubjectType>(insuranceSubjectTypeToUpdate,
+                "",
+                c => c.Title, c => c.InsuranceTypeID))
             {
                 try
                 {
-                    _context.Update(insuranceSubjectType);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException /* ex */)
                 {
-                    if (!InsuranceSubjectTypeExists(insuranceSubjectType.InsuranceSubjectTypeID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                        "Try again, and if the problem persists, " +
+                        "see your system administrator.");
                 }
                 return RedirectToAction(nameof(Index));
             }
+            PopulateTypesDropDownList(insuranceSubjectType.InsuranceTypeID);
             return View(insuranceSubjectType);
+        }
+
+        private void PopulateTypesDropDownList(object selectedType = null)
+        {
+            var typesQuery = from t in _context.InsuranceType
+                                orderby t.Title
+                                select t;
+            ViewBag.InsuranceTypeID = new SelectList(typesQuery.AsNoTracking(), "InsuranceTypeID", "Title", selectedType);
         }
 
         // GET: InsuranceSubjectTypes/Delete/5
@@ -125,6 +164,8 @@ namespace web.Controllers
             }
 
             var insuranceSubjectType = await _context.InsuranceSubjectType
+                .Include(i => i.InsuranceType)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.InsuranceSubjectTypeID == id);
             if (insuranceSubjectType == null)
             {

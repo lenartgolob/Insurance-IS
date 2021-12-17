@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
@@ -11,9 +12,10 @@ using web.Data;
 namespace web.Migrations
 {
     [DbContext(typeof(InsuranceContext))]
-    partial class InsuranceContextModelSnapshot : ModelSnapshot
+    [Migration("20211216175850_NewRelationship")]
+    partial class NewRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,6 +293,9 @@ namespace web.Migrations
                     b.Property<int?>("InsuranceSubjectTypeID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("InsuranceTypeID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("InsuredID")
                         .HasColumnType("int");
 
@@ -302,6 +307,8 @@ namespace web.Migrations
                     b.HasKey("InsuranceSubjectID");
 
                     b.HasIndex("InsuranceSubjectTypeID");
+
+                    b.HasIndex("InsuranceTypeID");
 
                     b.HasIndex("InsuredID");
 
@@ -316,17 +323,12 @@ namespace web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuranceSubjectTypeID"), 1L, 1);
 
-                    b.Property<int?>("InsuranceTypeID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("InsuranceSubjectTypeID");
-
-                    b.HasIndex("InsuranceTypeID");
 
                     b.ToTable("Insurance subject type", (string)null);
                 });
@@ -490,22 +492,19 @@ namespace web.Migrations
                         .WithMany("InsuranceSubjects")
                         .HasForeignKey("InsuranceSubjectTypeID");
 
+                    b.HasOne("web.Models.InsuranceType", "InsuranceType")
+                        .WithMany("InsuranceSubject")
+                        .HasForeignKey("InsuranceTypeID");
+
                     b.HasOne("web.Models.Insured", "Insured")
                         .WithMany("InsuranceSubjects")
                         .HasForeignKey("InsuredID");
 
                     b.Navigation("InsuranceSubjectType");
 
-                    b.Navigation("Insured");
-                });
-
-            modelBuilder.Entity("web.Models.InsuranceSubjectType", b =>
-                {
-                    b.HasOne("web.Models.InsuranceType", "InsuranceType")
-                        .WithMany("InsuranceSubjectTypes")
-                        .HasForeignKey("InsuranceTypeID");
-
                     b.Navigation("InsuranceType");
+
+                    b.Navigation("Insured");
                 });
 
             modelBuilder.Entity("web.Models.InsuranceSubtype", b =>
@@ -534,7 +533,7 @@ namespace web.Migrations
 
             modelBuilder.Entity("web.Models.InsuranceType", b =>
                 {
-                    b.Navigation("InsuranceSubjectTypes");
+                    b.Navigation("InsuranceSubject");
 
                     b.Navigation("InsuranceSubtypes");
                 });
