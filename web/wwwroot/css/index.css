@@ -28,3 +28,9 @@
 .font-italic {
     font-style: italic;
 }
+
+@media only screen and (max-width: 1000px) {
+    .img-container {
+        display: none;
+    }
+  }
