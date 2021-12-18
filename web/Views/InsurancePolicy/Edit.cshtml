@@ -59,3 +59,40 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<script>
+        function finalSum() {
+        var selectInsured = parseInt(document.getElementById("selectInsured").value);
+        var selectObject = parseInt(document.getElementById("selectObject").value);
+        var selectSubtype = parseInt(document.getElementById("selectSubtype").value);
+        var dateFrom = new Date(document.getElementById("dateFrom").value);
+        var dateTo = new Date(document.getElementById("dateTo").value);
+
+        if(selectInsured && selectObject && selectSubtype && dateFrom && dateTo){
+            for(let i=0; i<subjectSize; i++){
+                if(selectObject == parseInt(jsonSubjects[i].InsuranceSubjectID)){
+                    var estimatedValue = jsonSubjects[i].EstimatedValue;
+                }
+            } 
+            for(let i=0; i<subtypeSize; i++){
+                if(selectSubtype == parseInt(subtypesObj[i].InsuranceSubtypeID)){
+                    var rate = subtypesObj[i].Rate;
+                }
+            }  
+            var days = datediff(dateFrom, dateTo)
+            document.getElementById("finalPrice").value = ((parseFloat(estimatedValue)*parseFloat(rate))/365)*days;
+
+        }
+
+    }
+
+    function parseDate(str) {
+        var mdy = str.split('/');
+        return new Date(mdy[2], mdy[0]-1, mdy[1]);
+    }
+
+    function datediff(first, second) {
+        // Take the difference between the dates and divide by milliseconds per day.
+        // Round to nearest whole number to deal with DST.
+        return Math.round((second-first)/(1000*60*60*24));
+    }
+</script>
