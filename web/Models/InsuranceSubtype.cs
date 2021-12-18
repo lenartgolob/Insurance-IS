@@ -12,6 +12,8 @@ namespace web.Models
         [StringLength(50)]
         public string Title { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:0.#####}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Rate { get; set; }
         [Required]
         public string Description { get; set; }

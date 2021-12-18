@@ -106,32 +106,36 @@ new Chart(document.getElementById("pie-chart"), {
 });
 
 var userSumByType = @Html.Raw(ViewData["userSumByType"]);
+console.log(userSumByType);
 var users = @Html.Raw(ViewData["users"]);
 fullName = users[0].FirstName + " " + users[0].LastName;
-console.log(users[0].FirstName);
-console.log(userSumByType[fullName]);
 
 var datasetsArray = [];
 
 for(let i=0; i<users.length; i++){
+  let sum = 0;
   var fullName = users[i].FirstName + " " + users[i].LastName;
-  var num = Math.round(0xffffff * Math.random());
-  var r = num >> 16;
-  var g = num >> 8 & 255;
-  var b = num & 255;
-  var b = {
-      label: fullName,
-      fill: true,
-      backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', 0.2)',
-      borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ', 1)',
-      pointBorderColor: "#fff",
-      pointBackgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', 1)',
-      data: userSumByType[fullName]
+  for(let j=0; j<userSumByType[fullName].length; j++){
+    sum += userSumByType[fullName][j];
   }
-  datasetsArray.push(b);
+  console.log(userSumByType[fullName]);
+  if(sum != 0){
+    var num = Math.round(0xffffff * Math.random());
+    var r = num >> 16;
+    var g = num >> 8 & 255;
+    var b = num & 255;
+    var dataUser = {
+        label: fullName,
+        fill: true,
+        backgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', 0.2)',
+        borderColor: 'rgba(' + r + ', ' + g + ', ' + b + ', 1)',
+        pointBorderColor: "#fff",
+        pointBackgroundColor: 'rgba(' + r + ', ' + g + ', ' + b + ', 1)',
+        data: userSumByType[fullName]
+    }
+    datasetsArray.push(dataUser);
+  }
 }
-
-console.log(datasetsArray);
 
 
 var types = @Html.Raw(Json.Serialize(@ViewData["types"]));

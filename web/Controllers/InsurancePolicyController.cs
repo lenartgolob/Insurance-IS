@@ -181,7 +181,10 @@ namespace web.Controllers
                                 where s.InsuranceSubtypeID == insurancePolicy.InsuranceSubtypeID
                                 select s;
                     var subtype = query2.FirstOrDefault<InsuranceSubtype>();
-                    
+
+                    var currentUser = await _usermanager.GetUserAsync(User);
+                    insurancePolicy.OwnerID = currentUser.Id;
+
                     // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
                     insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
                     _context.Update(insurancePolicy);

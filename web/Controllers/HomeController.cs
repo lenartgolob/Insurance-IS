@@ -85,6 +85,7 @@ public class HomeController : Controller
             userSumByTypeDict.Add(fullName, userSumByTypeList);
         }
         ViewData["userSumByType"] = Newtonsoft.Json.JsonConvert.SerializeObject(userSumByTypeDict);
+        Console.WriteLine(users);
         ViewData["users"] = Newtonsoft.Json.JsonConvert.SerializeObject(users);
         return View();
     }
