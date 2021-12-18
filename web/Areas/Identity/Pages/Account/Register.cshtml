@@ -8,9 +8,14 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
+        <h2>Create a new account.</h2>
+        <hr />
+        <div class="form-floating">
+            <input id="code" class="form-control" autocomplete="first-name" aria-required="true" />
+            <label>Authorization code</label>
+            <span id="codeMsg" class="text-danger"></span>
+        </div>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" onsubmit="return mySubmitFunction(event)">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
                 <input asp-for="Input.FirstName" class="form-control" autocomplete="first-name" aria-required="true" />
@@ -79,3 +84,21 @@
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
 }
+<script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var code = 'Insurance-IS-' + dd + '-' + mm + '-' + yyyy;
+    
+    function mySubmitFunction(e) {
+        if(document.getElementById("code").value == code){
+            return true;
+        } else {
+            e.preventDefault();
+            document.getElementById("codeMsg").innerHTML = "Authorization code is incorrect!";
+            return false;
+        }
+    }
+</script>

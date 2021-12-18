@@ -109,8 +109,6 @@ namespace web.Controllers
         public async Task<IActionResult> Create([Bind("InsurancePolicyID,DateFrom,DateTo,InsuredID,InsuranceSubjectID,InsuranceSubtypeID")] InsurancePolicy insurancePolicy)
         {
             var currentUser = await _usermanager.GetUserAsync(User);
-            Console.WriteLine("aloooooooooooooooooooooooooooooooooooooooooooooooo1111111111111111111");
-
             if (ModelState.IsValid)
             {
                 var query = from s in _context.InsuranceSubject
@@ -125,8 +123,6 @@ namespace web.Controllers
                 // ((vrednost objekta * rate)/365)*trajanje zavarovalne police
                 insurancePolicy.FinalSum = ((subject.EstimatedValue*subtype.Rate)/365)*(decimal)((insurancePolicy.DateTo - insurancePolicy.DateFrom).TotalDays);
                 insurancePolicy.OwnerID = currentUser.Id;
-                Console.WriteLine("aloooooooooooooooooooooooooooooooooooooooooooooooo");
-                Console.WriteLine(insurancePolicy.InsuranceSubjectID);
                 _context.Add(insurancePolicy);
                 await _context.SaveChangesAsync();        
                 return RedirectToAction(nameof(Index));

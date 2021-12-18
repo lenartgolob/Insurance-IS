@@ -17,7 +17,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <div class="form-group">
+            <label class="control-label">Final price</label>
+            <input class="form-control" />
+        </div>
+        <form id="form" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DateFrom" class="control-label"></label>
@@ -128,4 +132,9 @@
 
         }
     }
+
+    var form = document..getElementById("form");
+    form.addEventListener('change', function() {
+        alert('Hi!');
+    });
 </script>
