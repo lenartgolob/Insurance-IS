@@ -544,3 +544,7 @@ D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.
 D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\itextsharp.dll
 D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\Select.HtmlToPdf.dll
+D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Lenart Golob\Dokumenti\ŠOLA\FRI\2.letnik\IS\Insurance-IS\web\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
