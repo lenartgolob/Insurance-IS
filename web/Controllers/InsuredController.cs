@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator, Agent")]
     public class InsuredController : Controller
     {
         private readonly InsuranceContext _context;
@@ -109,7 +109,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LastName,FirstMidName,Address,ZipCode")] Insured insured, IFormCollection form)
+        public async Task<IActionResult> Create([Bind("LastName,FirstMidName,Address,ZipCode,City")] Insured insured, IFormCollection form)
         {
             try {
                 if (ModelState.IsValid)
@@ -156,7 +156,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LastName,FirstMidName,Address,ZipCode")] Insured insured)
+        public async Task<IActionResult> Edit(int id, [Bind("LastName,FirstMidName,Address,ZipCode,City")] Insured insured)
         {
             if (id != insured.ID)
             {

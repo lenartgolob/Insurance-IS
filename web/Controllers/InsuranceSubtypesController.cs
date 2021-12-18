@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace web.Controllers
 {
+    [Authorize(Roles = "Administrator, Agent")]
     public class InsuranceSubtypesController : Controller
     {
         private readonly InsuranceContext _context;

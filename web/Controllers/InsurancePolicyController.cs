@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace web.Controllers
 {
+    [Authorize(Roles = "Administrator, Agent")]
     public class InsurancePolicyController : Controller
     {
         private readonly InsuranceContext _context;

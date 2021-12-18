@@ -33,6 +33,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Admin()
     {
         List<string> subtypes = new List<string>();
@@ -87,12 +88,13 @@ public class HomeController : Controller
         ViewData["users"] = Newtonsoft.Json.JsonConvert.SerializeObject(users);
         return View();
     }
-
+    [Authorize(Roles = "Administrator, Agent")]
     public IActionResult Agent()
     {
         return View();
     }
 
+    [Authorize(Roles = "Administrator, Agent")]  
     public IActionResult Insure()
     {
         return View();

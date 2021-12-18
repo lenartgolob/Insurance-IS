@@ -18,6 +18,8 @@ namespace web.Models
         public string Address { get; set; }
         [Required]
         public string ZipCode { get; set; }
+        [Required]
+        public string City { get; set; }
         public string? FullName { get; set; }
         public ICollection<InsuranceSubject>? InsuranceSubjects { get; set; }
         public ICollection<InsurancePolicy>? InsurancePolicies { get; set; }
