@@ -42,17 +42,35 @@
         <dd class="col-sm-10">
             <table class="table">
                 <tr>
+                    <th>Policy number</th>
+                    <th>Final price</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Name and Lastname</th>
+                    <th>Object</th>    
                     <th>Insurance</th>
-                    <th>Insurance Object</th>
+                    <th></th>
                 </tr>
                 @foreach (var item in Model.InsurancePolicies)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.InsuranceSubtype)
+                            @Html.DisplayFor(modelItem => item.InsurancePolicyID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.InsuranceSubject)
+                            @Html.DisplayFor(modelItem => item.FinalSum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Insured.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InsuranceSubject.Title)
                         </td>
                     </tr>
                 }
