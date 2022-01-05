@@ -48,7 +48,6 @@
                     <th>To</th>
                     <th>Name and Lastname</th>
                     <th>Object</th>    
-                    <th>Insurance</th>
                     <th></th>
                 </tr>
                 @foreach (var item in Model.InsurancePolicies)
@@ -71,6 +70,11 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.InsuranceSubject.Title)
+                        </td>
+                        <td>
+                            <a href="/InsurancePolicy/Edit/@item.InsurancePolicyID" >Edit</a> |
+                            <a href="/InsurancePolicy/Details/@item.InsurancePolicyID">Details</a> |
+                            <a href="/InsurancePolicy/Delete/@item.InsurancePolicyID">Delete</a>
                         </td>
                     </tr>
                 }
