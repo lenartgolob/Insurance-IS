@@ -63,6 +63,8 @@
     $("#btnPdf").click(function () {
         var sHtml = $("#pdfContainer").html();
         sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag").replace("20px", "100px").replace("h3", "h2").replace("h5", "h4");
-        window.open('../../InsurancePolicy/GeneratePDF?html=' + sHtml, '_blank')
+        $.post(['../../InsurancePolicy/GeneratePDF'], { html: sHtml } );
+        
+        //window.open('../../InsurancePolicy/GeneratePDF?html=' + sHtml, '_blank')
     });
 </script>
