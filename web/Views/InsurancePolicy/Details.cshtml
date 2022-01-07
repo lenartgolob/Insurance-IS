@@ -59,12 +59,14 @@
 <div class="text-center">
     <button id="btnPdf" class="btn btn-primary">Generate PDF</button>
 </div>
+<form name="theForm" action="../../InsurancePolicy/GeneratePDF" method="post">
+    <input type="hidden" name="html" id="html" value="" />
+</form>
 <script type="text/javascript">
     $("#btnPdf").click(function () {
         var sHtml = $("#pdfContainer").html();
         sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag").replace("20px", "100px").replace("h3", "h2").replace("h5", "h4");
-        $.post(['../../InsurancePolicy/GeneratePDF'], { html: sHtml } );
-        
-        //window.open('../../InsurancePolicy/GeneratePDF?html=' + sHtml, '_blank')
+        document.getElementById('html').value = sHtml;
+        document.theForm.submit();
     });
 </script>

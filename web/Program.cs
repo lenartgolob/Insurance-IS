@@ -5,7 +5,7 @@ using web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("AzureContext");
+var connectionString = builder.Configuration.GetConnectionString("InsuranceContext");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

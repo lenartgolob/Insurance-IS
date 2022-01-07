@@ -30,10 +30,12 @@ namespace web.Controllers
         [HttpPost]
         public IActionResult GeneratePdf()
         {
+            Console.WriteLine("aloooooooooooooooooooooooooooooo");
             string baseUrl = string.Format("{0}://{1}", 
                        HttpContext.Request.Scheme, HttpContext.Request.Host);
 
             var html = Request.Form["html"].ToString();
+            Console.WriteLine(html);
             html = html.Replace("StrTag", "<").Replace("EndTag", ">");
 
             HtmlToPdf oHtmlToPdf = new HtmlToPdf();
