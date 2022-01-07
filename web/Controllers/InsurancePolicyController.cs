@@ -26,14 +26,14 @@ namespace web.Controllers
             _context = context;
             _usermanager = userManager;
         }
-        
+
         [HttpPost]
         public IActionResult GeneratePdf()
         {
             string baseUrl = string.Format("{0}://{1}", 
                        HttpContext.Request.Scheme, HttpContext.Request.Host);
 
-            var html = Request["html"];
+            var html = Request.Form["html"].ToString();
             html = html.Replace("StrTag", "<").Replace("EndTag", ">");
 
             HtmlToPdf oHtmlToPdf = new HtmlToPdf();
