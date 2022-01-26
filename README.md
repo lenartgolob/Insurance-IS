@@ -5,6 +5,12 @@
 
 Insurance agents can create a client, create an object that belongs to specific client and create an insurance policy for specific client and specific object.
 
+## Download and Installation
+* Clone the repository: `git clone https://github.com/lenartgolob/Insurance-IS.git`
+* Host MS SQL server: `docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04`
+* Update database: `dotnet ef database update`
+* Run the project: `dotnet run`
+
 ## Preview
 **Landing Page** is accesible to all users and from here a user can login/register or access other functionalities of the website.
 
@@ -33,9 +39,3 @@ Library AspNetCore.Identity is implemented for authentication and authorization 
 
 ## REST API
 API is documented [here](https://insurance-is-dev.azurewebsites.net/swagger/index.html). The API allows read, create, update and delete operations on tables InsurancePolicy, Insured and InsuranceSubject.
-
-## Download and Installation
-* Clone the repository: `git clone https://github.com/lenartgolob/Insurance-IS.git`
-* Host MS SQL server: `docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04`
-* Update database: `dotnet ef database update`
-* Run the project: `dotnet run`
