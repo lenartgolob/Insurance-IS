@@ -34,22 +34,8 @@ Library AspNetCore.Identity is implemented for authentication and authorization 
 ## REST API
 API is documented [here](https://insurance-is-dev.azurewebsites.net/swagger/index.html). The API allows read, create, update and delete operations on tables InsurancePolicy, Insured and InsuranceSubject.
 
-## Mobile App
-The prototype of [Insurance-IS mobile app](https://github.com/anovak8/InsuranceISApp) shows customers and allows an agent to create new clients and also it shows all insurance policies.
-
 ## Download and Installation
 * Clone the repository: `git clone https://github.com/lenartgolob/Insurance-IS.git`
 * Host MS SQL server: `docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04`
 * Update database: `dotnet ef database update`
 * Run the project: `dotnet run`
-
-## Authors
-* Lenart Golob 63200101
-* Anže Novak 63200202 
-
-## Tasks
- * Web Application: Lenart
- * Data Base: Lenart
- * Web Service: Lenart
- * Android app: Anže
- * Report: Anže
